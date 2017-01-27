@@ -24,10 +24,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink.Loader" Version="14.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\1_Inventory\" />
-    <Folder Include="Views\3_FloorGrid\" />
-    <Folder Include="Views\2_Orders\" />
-    <Folder Include="Views\4_Settings\" />
     <Folder Include="Views\5_Shared\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
