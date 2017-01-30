@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: black;
 }
 
 .body-content {
@@ -17,6 +18,10 @@ input, select, textarea {
     border-right: solid 1px #FFF;
 }
 
+.navbar {
+    margin-bottom: 0;
+}
+
 .navbar-nav {
     display: table;
     width: 100%;
@@ -24,7 +29,18 @@ input, select, textarea {
 }
 
 .navbar-nav > li {
-        float: none;
-        display: table-cell;
-        text-align: center;
+    float: none;
+    display: table-cell;
+    text-align: center;
 }
+
+/*
+.container-fluid {
+    border: 5px double #D15F07;
+}
+
+
+.center-text {
+    text-align: center;
+}
+*/
