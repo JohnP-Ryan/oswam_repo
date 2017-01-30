@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OSWAM.Controllers
 {
-    public class _1_Inventory : Controller
+    public class Orders : Controller
     {
         // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewData["Message"] = "Tab2";
             return View();
         }
     }

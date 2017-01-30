@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OSWAM.Controllers
 {
-    public class _2_Orders : Controller
+    public class FloorGrid : Controller
     {
         // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewData["Message"] = "Tab3";
             return View();
         }
     }

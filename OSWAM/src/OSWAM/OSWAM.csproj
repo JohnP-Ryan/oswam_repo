@@ -24,7 +24,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink.Loader" Version="14.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\5_Shared\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 </Project>
