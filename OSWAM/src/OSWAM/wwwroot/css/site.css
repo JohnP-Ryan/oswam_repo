@@ -15,11 +15,15 @@ input, select, textarea {
 
 .divider-vertical-right {
     float: left;
-    border-right: solid 1px #FFF;
+    border-right: solid 1px #42c2f4;
+}
+
+.divider-horizontal-bottom {
+    border-bottom: solid 1px #42c2f4;
 }
 
 .navbar {
-    margin-bottom: 0;
+    margin-bottom: 20px;
 }
 
 .navbar-nav {
