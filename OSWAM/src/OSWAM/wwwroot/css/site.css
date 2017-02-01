@@ -9,10 +9,6 @@
     padding-right: 15px;
 }
 
-input, select, textarea {
-    max-width: 280px;
-}
-
 .divider-vertical-right {
     float: left;
     border-right: solid 1px #42c2f4;
