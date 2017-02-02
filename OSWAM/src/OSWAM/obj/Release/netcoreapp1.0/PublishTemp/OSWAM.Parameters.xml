@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="IIS Web Application Name" description="" value="oswam" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\John\\Documents\\GitHub\\oswam_repo\\OSWAM\\src\\OSWAM\\obj\\Release\\netcoreapp1\.0\\PublishTemp\\PublishOutput\\$" />
-  </parameter>
-</parameters>

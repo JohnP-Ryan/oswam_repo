@@ -1,9 +1,0 @@
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\bin\Debug\netcoreapp1.0\OSWAM.deps.json
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\bin\Debug\netcoreapp1.0\OSWAM.runtimeconfig.json
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\bin\Debug\netcoreapp1.0\OSWAM.runtimeconfig.dev.json
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\bin\Debug\netcoreapp1.0\OSWAM.dll
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\bin\Debug\netcoreapp1.0\OSWAM.pdb
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\obj\Debug\netcoreapp1.0\OSWAM.csprojResolveAssemblyReference.cache
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\obj\Debug\netcoreapp1.0\OSWAM.AssemblyInfo.cs
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\obj\Debug\netcoreapp1.0\OSWAM.dll
-C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\obj\Debug\netcoreapp1.0\OSWAM.pdb
