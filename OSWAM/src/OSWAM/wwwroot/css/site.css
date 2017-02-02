@@ -26,6 +26,18 @@ nav a {
     flex: 0;
 }
 
+.flex-col {
+    display: flex;
+    flex: 1 100%;
+    flex-flow: column nowrap;
+}
+
+.flex-grow {
+    display: flex;
+    -webkit-flex: 2;
+    flex: 2;
+}
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
