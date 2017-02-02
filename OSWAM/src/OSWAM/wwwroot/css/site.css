@@ -12,6 +12,20 @@ nav a {
     font-size: 1.6em;
 }
 
+.row-flex, .row-flex > div[class*='col-'] {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.row-flex-wrap {
+    -webkit-flex-flow: row wrap;
+    align-content: flex-start;
+    flex: 0;
+}
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -50,6 +64,7 @@ nav a {
 .text-center {
     text-align: center;
 }
+
 
 /*
 .container-fluid {
