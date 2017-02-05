@@ -1,6 +1,41 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: black;
+}
+
+h4 {
+    color: #42c2f4;
+}
+
+nav a {
+    font-size: 1.6em;
+}
+
+.row-flex, .row-flex > div[class*='col-'] {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.row-flex-wrap {
+    -webkit-flex-flow: row wrap;
+    align-content: flex-start;
+    flex: 0;
+}
+
+.flex-col {
+    display: flex;
+    flex: 1 100%;
+    flex-flow: column nowrap;
+}
+
+.flex-grow {
+    display: flex;
+    -webkit-flex: 2;
+    flex: 2;
 }
 
 .body-content {
@@ -8,13 +43,22 @@
     padding-right: 15px;
 }
 
-input, select, textarea {
-    max-width: 280px;
-}
-
 .divider-vertical-right {
     float: left;
-    border-right: solid 1px #FFF;
+    border-right: solid 1px #42c2f4;
+}
+
+.divider-vertical-left {
+    float: left;
+    border-left: solid 1px #42c2f4;
+}
+
+.divider-horizontal-bottom {
+    border-bottom: solid 1px #42c2f4;
+}
+
+.navbar {
+    margin-bottom: 20px;
 }
 
 .navbar-nav {
@@ -28,3 +72,24 @@ input, select, textarea {
         display: table-cell;
         text-align: center;
     }
+
+.text-center {
+    text-align: center;
+}
+
+/*Tab2 Collapsible Order Icons*/
+.panel-heading .panel-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey;
+}
+
+.panel-heading .panel-toggle.collapsed:after {
+    content: "\e080";
+}
+
+/* Canvas Test Area*/
+canvas {
+    background: #eee;
+}
