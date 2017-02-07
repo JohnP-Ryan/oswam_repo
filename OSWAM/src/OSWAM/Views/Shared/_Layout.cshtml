@@ -19,36 +19,41 @@
 
 </head>
 <body>
-    <!-- START NAV-->
-    <nav class="navbar navbar-inverse container-fluid divider-horizontal-bottom">
-        <div>
-            <!-- Optional branding/home button put on top?
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">OSWAM -Image-</a>
-            </div>
+    <ul class="nav nav-tabs nav-justified">
+        @if (ViewBag.Page == "Inventory")
+        {
+            <li role="presentation" class="active"><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Settings")">Settings</a></li>
+        }
+        else if (ViewBag.Page == "Orders")
+        {
+            <li role="presentation"><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
+            <li role="presentation" class="active"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Settings")">Settings</a></li>
 
-            -->
+        }
+        else if (ViewBag.Page == "FloorGrid")
+        {
+            <li role="presentation"><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+            <li role="presentation" class="active"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Settings")">Settings</a></li>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="divider-vertical-right"><a href="@Url.Action("Index", "Inventory")"><span>Inventory</span></a></li>
-                    <li class="divider-vertical-right"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
-                    <li class="divider-vertical-right"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
-                    <li ><a href="@Url.Action("Index", "Settings")">Settings</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+        }
+        else
+        {
+            <li role="presentation"><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
+            <li role="presentation" class="active"><a href="@Url.Action("Index", "Settings")">Settings</a></li>
 
+        }
+    </ul>
     <!-- END NAV-->
-
+    <br/>
     <div class="container-fluid body-content">
         @RenderBody()
         <hr />

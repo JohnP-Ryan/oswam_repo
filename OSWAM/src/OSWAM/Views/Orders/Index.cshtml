@@ -1,9 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "Orders Location";
+    ViewData["Title"] = "Orders";
+    ViewBag.Page = "Orders";
 }
-
-
-
 
 <div class="row">
     <div class="col-lg-8">
@@ -55,30 +53,42 @@
     </div>
     <!--Right Hand Details Column (size 4)-->
     <div class="col-lg-4">
-        <h4 class="text-center">Order Details</h4>
-        <hr />
-        <ol class="list-group">
-            <li class="list-group-item">
-                <span class="badge">B0000CDLKF</span>
-                Best CD Ever</li>
-            <li class="list-group-item">
-                <span class="badge">B00EHZYWGM</span>
-                AmazonBasics Portable Bluetooth Speaker - Black</li>
-            <li class="list-group-item">
-                <span class="badge">B00KMF2MZO</span>
-                Galaxy S5 Screen Protector</li>
-            <li class="list-group-item">
-                <span class="badge">B01EFKSCP0</span>
-                PopSockets: Expanding Stand</li>
-        </ol>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="text-center">Order Details</h4>
+            </div>
+            <div class="panel-body">
+                <ol class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">B0000CDLKF</span>
+                        Best CD Ever
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">B00EHZYWGM</span>
+                        AmazonBasics Portable Bluetooth Speaker - Black
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">B00KMF2MZO</span>
+                        Galaxy S5 Screen Protector
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">B01EFKSCP0</span>
+                        PopSockets: Expanding Stand
+                    </li>
+                </ol>
 
-        <ul class="list-group">
-            <li class="list-group-item">
-                <span class="badge">$56.07</span>
-                Total Price</li>
-            <li class="list-group-item">
-                <span class="badge">3.14 Pounds</span>
-                Total Weight</li>
-        </ul>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">$56.07</span>
+                        Total Price
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">3.14 Pounds</span>
+                        Total Weight
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
     </div>
 </div>
