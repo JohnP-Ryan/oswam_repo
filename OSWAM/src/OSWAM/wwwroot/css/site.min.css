@@ -1,16 +1,12 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 20px;
-    background-color: black;
 }
 
-h4 {
-    color: #42c2f4;
+.badge {
+    font-size: 16px;
 }
 
-nav a {
-    font-size: 1.6em;
-}
 
 .row-flex, .row-flex > div[class*='col-'] {
     display: -webkit-box;
@@ -43,35 +39,11 @@ nav a {
     padding-right: 15px;
 }
 
-.divider-vertical-right {
-    float: left;
-    border-right: solid 1px #42c2f4;
-}
-
-.divider-vertical-left {
-    float: left;
-    border-left: solid 1px #42c2f4;
-}
-
-.divider-horizontal-bottom {
-    border-bottom: solid 1px #42c2f4;
-}
-
 .navbar {
     margin-bottom: 20px;
 }
 
-.navbar-nav {
-    display: table;
-    width: 100%;
-    margin: 0;
-}
 
-    .navbar-nav > li {
-        float: none;
-        display: table-cell;
-        text-align: center;
-    }
 
 .text-center {
     text-align: center;
