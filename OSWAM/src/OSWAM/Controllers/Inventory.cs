@@ -13,8 +13,19 @@ namespace OSWAM.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            ViewData["Message"] = "Tab1";
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Report(string textboxID, string textboxName, int weightLow, int weightHigh, int priceLow, int priceHigh)
+        {
+            System.Diagnostics.Debug.WriteLine(textboxID);
+            System.Diagnostics.Debug.WriteLine(textboxName);
+            System.Diagnostics.Debug.WriteLine(weightLow);
+            System.Diagnostics.Debug.WriteLine(weightHigh);
+            System.Diagnostics.Debug.WriteLine(priceLow);
+            System.Diagnostics.Debug.WriteLine(priceHigh); 
+            return RedirectToAction("Index");
         }
     }
 }
