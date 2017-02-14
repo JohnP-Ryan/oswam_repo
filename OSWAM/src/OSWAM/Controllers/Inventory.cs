@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+//using OSWAM.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,6 +14,7 @@ namespace OSWAM.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+
             return View();
         }
 
@@ -24,7 +26,8 @@ namespace OSWAM.Controllers
             System.Diagnostics.Debug.WriteLine(weightLow);
             System.Diagnostics.Debug.WriteLine(weightHigh);
             System.Diagnostics.Debug.WriteLine(priceLow);
-            System.Diagnostics.Debug.WriteLine(priceHigh); 
+            System.Diagnostics.Debug.WriteLine(priceHigh);
+
             return RedirectToAction("Index");
         }
     }
