@@ -1,0 +1,67 @@
+﻿body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.badge {
+    font-size: 16px;
+}
+
+
+.row-flex, .row-flex > div[class*='col-'] {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.row-flex-wrap {
+    -webkit-flex-flow: row wrap;
+    align-content: flex-start;
+    flex: 0;
+}
+
+.flex-col {
+    display: flex;
+    flex: 1 100%;
+    flex-flow: column nowrap;
+}
+
+.flex-grow {
+    display: flex;
+    -webkit-flex: 2;
+    flex: 2;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+
+
+.text-center {
+    text-align: center;
+}
+
+/*Tab2 Collapsible Order Icons*/
+.panel-heading .panel-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey;
+}
+
+.panel-heading .panel-toggle.collapsed:after {
+    content: "\e080";
+}
+
+/* Canvas Test Area*/
+canvas {
+    background: #eee;
+}

@@ -49,3 +49,16 @@
         drawBoard();
     }
 })();
+
+
+function ToggleDiv(Flag) {
+    if (Flag == "first") {
+
+        document.getElementById('dvFirstDiv').style.display = 'block';
+        document.getElementById('dvSecondDiv').style.display = 'none';
+    }
+    else {
+        document.getElementById('dvFirstDiv').style.display = 'none';
+        document.getElementById('dvSecondDiv').style.display = 'block';
+    }
+}

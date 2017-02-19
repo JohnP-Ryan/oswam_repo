@@ -4,53 +4,56 @@
 }
 
 <div class="row">
+    <!--Hiding Panel Nav bar-->
     <div class="col-lg-8">
-        <!--Collapsible Panel Group Column (size 8)-->
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="panel-toggle" data-toggle="collapse" href="#collapse1">Orders in Progress</a>
-                    </h4>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse">
-                    <ul class="list-group">
-                        <li class="list-group-item">Pending Order One</li>
-                        <li class="list-group-item">Pending Order Two</li>
-                        <li class="list-group-item">Pending Order Three</li>
-                    </ul>
-                </div>
+        <div class="container-fluid">
+            <ul class="nav nav-tabs nav-justified nav-divider">
+                <li><asp:Button runat="server" OnClientClick="showPanel('first'); return false;" class="btn btn-primary btn-block">In Progress</asp:Button></li>
+                <li><button type="button" class="btn btn-primary btn-block showWaiting">Waiting</button></li>
+                <li><button type="button" class="btn btn-primary btn-block showFulfilled">Fulfilled</button></li>
+            </ul>
+        </div>
+        <br />
+        <!--Panel In Progress-->
+        <div class="panel panel-default" id="dvFirstDiv" style="display: block;">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    In Progress
+                </h4>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="panel-toggle" data-toggle="collapse" href="#collapse2">Orders Waiting for Attention</a>
-                    </h4>
-                </div>
-                <div id="collapse2" class="panel-collapse collapse">
-                    <ul class="list-group">
-                        <li class="list-group-item">Waiting Order One</li>
-                        <li class="list-group-item">Waiting Order Two</li>
-                        <li class="list-group-item">Waiting Order Three</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="panel-toggle" data-toggle="collapse" href="#collapse3">Orders Fullfilled</a>
-                    </h4>
-                </div>
-                <div id="collapse3" class="panel-collapse collapse">            
-                    <ul class="list-group">
-                        <li class="list-group-item">Processed Order One</li>
-                        <li class="list-group-item">Processed Order Two</li>
-                        <li class="list-group-item">Processed Order Three</li>
-                    </ul>
+            <div id="panelProgress">
+                <div class="panel-body">
+                    Striped List Group
                 </div>
             </div>
         </div>
-    </div>
+        <!--Panel Waiting-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Waiting
+                </h4>
+            </div>
+            <div id="panelWaiting">
+                <div class="panel-body">
+                    Striped List Group
+                </div>
+            </div>
+        </div>
+        <!--Panel Fulfilled-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Fulfilled
+                </h4>
+            </div>
+            <div id="panelFulfilled">
+                <div class="panel-body">
+                    Striped List Group
+                </div>
+            </div>
+        </div>
+    </div>      
     <!--Right Hand Details Column (size 4)-->
     <div class="col-lg-4">
         <div class="panel panel-default">
@@ -92,3 +95,39 @@
         
     </div>
 </div>
+
+<script type="text/javascript">
+    function ToggleDiv(Flag) {
+        alert("Hello! I am an alert box!!");
+        if (Flag == "first") {
+            alert("clicked first");
+            document.getElementById('dvFirstDiv').style.display = 'block';
+            document.getElementById('dvSecondDiv').style.display = 'none';
+        }
+        else {
+            document.getElementById('dvFirstDiv').style.display = 'none';
+            document.getElementById('dvSecondDiv').style.display = 'block';
+        }
+    }
+</script>
+
+<!--
+<script type="text/javascript">
+    $(document).ready(function (){
+        $(".showProgress").click( function () {
+            $("#panelProgress").parent().show();
+            $("#panelWaiting").parent().hide();
+            $("#panelFulfilled").parent().hide();
+        });
+        $(".showWaiting").click( function () {
+            $("#panelProgress").parent().hide();
+            $("#panelWaiting").parent().show();
+            $("#panelFulfilled").parent().hide();
+        });
+        $(".showFulfilled").click( function () {
+            $("#panelProgress").parent().hide();
+            $("#panelWaiting").parent().hide();
+            $("#panelFulfilled").parent().show();
+        });
+    });
+</script> -->

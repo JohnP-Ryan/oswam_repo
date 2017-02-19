@@ -9,3 +9,7 @@ OSWAM/src/OSWAM/obj/Debug/netcoreapp1.0/OSWAM.AssemblyInfo.cs
 OSWAM/src/OSWAM/obj/Debug/netcoreapp1.0/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
 OSWAM/src/OSWAM/obj/Release/netcoreapp1.0/CoreCompileInputs.cache
 OSWAM/src/OSWAM/obj/Release/netcoreapp1.0/OSWAM.csproj.FileListAbsolute.txt
+*.eot
+OSWAM/.vs/OSWAM/v15/.suo
+OSWAM/src/OSWAM/bin/Debug/netcoreapp1.0/OSWAM.pdb
+OSWAM/src/OSWAM/bin/Release/netcoreapp1.0/OSWAM.pdb

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using OSWAM;
 
 namespace OSWAM
 {
@@ -29,6 +31,9 @@ namespace OSWAM
         {
             // Add framework services.
             services.AddMvc();
+
+            var connection = @"Server=tcp:oswam.database.windows.net,1433;Initial Catalog=OSWAM_Data;Persist Security Info=False;User ID=cap_admin;Password=xxxxxxxx;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            services.AddDbContext<OSWAM_DataContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +45,7 @@ namespace OSWAM
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
             }
             else
             {

@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Inventory";
+    ViewBag.Page = "Inventory";
+}
+
+<!DOCTYPE html>
+<div>
+    <div class="row container-fluid">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-center">Search Inventory</h4>
+                </div>
+                <div class="panel-body">
+
+                    @using (Html.BeginForm("Report","Inventory", FormMethod.Post, null))
+                    {
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">ID</span>
+                                <input name="textboxID" type="text" class="form-control" placeholder="B0000CDLKF" aria-describedby="basic-addon1">                             
+                            </div>
+                           
+                            <hr />
+                            <p class="text-center">OR</p>
+                            <hr/>
+
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon2">Name</span>
+                                <input name="textboxName" class="form-control" placeholder="Acer, Tablet, USB" aria-describedby="basic-addon2">
+                            </div> <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon3">Weight</span>
+                                <input name="weightLow" class="form-control" placeholder="From" aria-describedby="basic-addon3" />
+                                <input name="weightHigh" class="form-control" placeholder="To" aria-describedby="basic-addon4" />
+                            </div> <br />
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon3">Price</span>
+                                <input name="priceLow" class="form-control" placeholder="From" aria-describedby="basic-addon5" />
+                                <input name="priceHigh" class="form-control" placeholder="To" aria-describedby="basic-addon6" />
+                            </div>
+                            <br />
+                            <input class="btn btn-primary center-block" type="submit" value="Search" />
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 divider-vertical-right divider-vertical-left"> 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-center">Search Results</h4>
+                </div>
+                <div class="panel-body" id="dataGridDisplay">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-center">Item Details</h4>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="badge">B0000CDLKF</span>
+                            ID
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">Best CD Ever</span>
+                            Name
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">0.14 pounds</span>
+                            Weight
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">5"</span>
+                            Length
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">6"</span>
+                            Width
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">0.25"</span>
+                            Height
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">14</span>
+                            Quantity
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">$14.99</span>
+                            Price
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+<script type="text/javascript">
+    $(function () {
+        $('.submit').click(function () {
+            alert("got here");
+            $.ajax({
+                url: '@@Url.RouteUrl(new { action = "SP_Input", controller = "Inventory" })',
+                data: {},
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+
+            })
+
+        })
+
+    }
+</script>
+    -->

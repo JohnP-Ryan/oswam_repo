@@ -7,3 +7,4 @@ C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\obj\Release\netcoreapp
 C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\obj\Release\netcoreapp1.0\OSWAM.AssemblyInfo.cs
 C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\obj\Release\netcoreapp1.0\OSWAM.dll
 C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\obj\Release\netcoreapp1.0\OSWAM.pdb
+C:\Users\John\Documents\GitHub\oswam_repo\OSWAM\src\OSWAM\bin\Release\netcoreapp1.0\OSWAM.dll.config
