@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OSWAM - @ViewData["Title"]</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/content/bootstrap.css" />
+        <link rel="stylesheet" href="~/content/Site.css" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/content/bootstrap.css"
+              asp-fallback-href="~/content/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/content/Site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <ul class="nav nav-tabs nav-justified">
+        @if (ViewBag.Page == "Inventory")
+        {
+            <li role="presentation" class="active"><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Settings")">Settings</a></li>
+        }
+        else if (ViewBag.Page == "Orders")
+        {
+            <li role="presentation"><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
+            <li role="presentation" class="active"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Settings")">Settings</a></li>
+
+        }
+        else if (ViewBag.Page == "FloorGrid")
+        {
+            <li role="presentation"><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+            <li role="presentation" class="active"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Settings")">Settings</a></li>
+
+        }
+        else
+        {
+            <li role="presentation"><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+            <li role="presentation"><a href="@Url.Action("Index", "FloorGrid")">Floor Grid</a></li>
+            <li role="presentation" class="active"><a href="@Url.Action("Index", "Settings")">Settings</a></li>
+
+        }
+    </ul>
+    <!-- END NAV-->
+    <br/>
+    <div class="container-fluid body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="">2017 - OSWAMS</a>
+                </div>
+                <ul class="nav navbar-nav"> 
+                    <li role="presentation"><a href="#">About the Project</a></li>
+                    <li role="presentation"><a href="#">Terms of Use</a></li>
+                    <li role="presentation"><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+        </footer>
+    </div>
+
+    <environment names="Development">
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+        <script src="~/Content/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/Scripts/jquery-1.10.2.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/Scripts/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/Content/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
