@@ -262,6 +262,7 @@
     <Content Include="Models\OswamDataModel.edmx.diagram">
       <DependentUpon>OswamDataModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\OSWAM - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -288,7 +289,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <Content Include="Views\Index.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />

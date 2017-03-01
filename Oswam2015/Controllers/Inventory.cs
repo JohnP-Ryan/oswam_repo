@@ -21,25 +21,26 @@ namespace OSWAM.Controllers
 
         public ActionResult Index()
         {
-            var data = dataContext.GetInventoryProducts(null, null, 0, 1, 0, 4);
-
-            if (TempData["FormDataArray"] == null)
+            //check if one value is null, (is new session)
+            if(!(Session["fInvWeightLow"] != null))
             {
-                data = dataContext.GetInventoryProducts(null, null, 0, 1, 0, 200);
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Data preserved: ");
-                String[] formData = (String[]) TempData["FormDataArray"];
-
-                for(int i = 0; i > 6; i++)
-                {
-                    System.Diagnostics.Debug.WriteLine("Temp: " + formData[i]);
-                }
-
-                data = dataContext.GetInventoryProducts(formData[0], formData[1], Int32.Parse(formData[2]), Int32.Parse(formData[3]), Int32.Parse(formData[4]), Int32.Parse(formData[5]));
+                System.Diagnostics.Debug.WriteLine("Session not filled");
+                Session["fInvWeightLow"] = 0;
+                Session["fInvWeightHigh"] = 0;
+                Session["fInvPriceLow"] = 0;
+                Session["fInvPriceHigh"] = 0;
             }
 
+            /* Debug form data printouts
+            System.Diagnostics.Debug.WriteLine(Session["fInvID"]);
+            System.Diagnostics.Debug.WriteLine(Session["fInvName"]);
+            System.Diagnostics.Debug.WriteLine(Session["fInvWeightLow"]);
+            System.Diagnostics.Debug.WriteLine(Session["fInvWeightHigh"]);
+            System.Diagnostics.Debug.WriteLine(Session["fInvPriceLow"]);
+            System.Diagnostics.Debug.WriteLine(Session["fInvPriceHigh"]);
+            */
+
+            var data = dataContext.GetInventoryProducts((string)(Session["fInvID"]), (string)(Session["fInvName"]), (int)Session["fInvWeightLow"], (int)Session["fInvWeightHigh"], (int)Session["fInvPriceLow"], (int)Session["fInvPriceHigh"]);
 
             return View(data.ToList());
         }
@@ -47,46 +48,13 @@ namespace OSWAM.Controllers
         [HttpPost]
         public ActionResult Report(string textboxID = null, string textboxName = null, int weightLow = 0, int weightHigh = 0, int priceLow = 0, int priceHigh = 0)
         {
-            /*
-            System.Diagnostics.Debug.WriteLine("RUNNING");
 
-            
-
-            System.Diagnostics.Debug.WriteLine(fData.getFormId());
-            System.Diagnostics.Debug.WriteLine(fData.getFormName());
-            System.Diagnostics.Debug.WriteLine(fData.getFormWeightLow());
-            System.Diagnostics.Debug.WriteLine(fData.getFormWeightHigh());
-            System.Diagnostics.Debug.WriteLine(fData.getFormPriceLow());
-            System.Diagnostics.Debug.WriteLine(fData.getFormPriceHigh());
-
-
-            InventoryFormData fData = new InventoryFormData(null, null, 0, 1, 0, 4);
-
-            fData.setFormId(textboxID);
-            fData.setFormName(textboxName);
-            fData.setFormWeightLow(weightLow);
-            fData.setFormWeightHigh(weightHigh);
-            fData.setFormPriceLow(priceLow);
-            fData.setFormPriceHigh(priceHigh);
-
-            var data = dataContext.GetInventoryProducts(fData.getFormId(), fData.getFormName(), fData.getFormWeightLow(), fData.getFormWeightHigh(), fData.getFormPriceLow(), fData.getFormPriceHigh());
-            System.Diagnostics.Debug.WriteLine(fData.getFormId());
-            System.Diagnostics.Debug.WriteLine(fData.getFormName());
-            System.Diagnostics.Debug.WriteLine(fData.getFormWeightLow());
-            System.Diagnostics.Debug.WriteLine(fData.getFormWeightHigh());
-            System.Diagnostics.Debug.WriteLine(fData.getFormPriceLow());
-            System.Diagnostics.Debug.WriteLine(fData.getFormPriceHigh());
-            */
-
-            String[] formData = new String[6];
-            formData[0] = textboxID;
-            formData[1] = textboxName;
-            formData[2] = weightLow.ToString();
-            formData[3] = weightHigh.ToString();
-            formData[4] = priceLow.ToString();
-            formData[5] = priceHigh.ToString();
-
-            TempData["FormDataArray"] = formData;
+            Session["fInvID"] = textboxID;
+            Session["fInvName"] = textboxName;
+            Session["fInvWeightLow"] = weightLow;
+            Session["fInvWeightHigh"] = weightHigh;
+            Session["fInvPriceLow"] = priceLow;
+            Session["fInvPriceHigh"] = priceHigh;
 
             return RedirectToAction("Index");
         }
