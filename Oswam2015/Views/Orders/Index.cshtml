@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<Oswam2015.Models.GetOrderCount_Result>
+@{
     ViewData["Title"] = "Orders";
     ViewBag.Page = "Orders";
+
+    WebGrid orderGrid = new WebGrid(Model, rowsPerPage: 35);
 }
 
 <div class="row">
@@ -14,42 +17,23 @@
             </ul>
         </div>
         <br />
-        <!--Panel In Progress-->
-        <div class="panel panel-default" id="dvFirstDiv" style="display: block;">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    In Progress
-                </h4>
-            </div>
-            <div id="panelProgress">
-                <div class="panel-body">
-                    Striped List Group
-                </div>
-            </div>
-        </div>
-        <!--Panel Waiting-->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    Waiting
-                </h4>
-            </div>
-            <div id="panelWaiting">
-                <div class="panel-body">
-                    Striped List Group
-                </div>
-            </div>
-        </div>
         <!--Panel Fulfilled-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title">
-                    Fulfilled
-                </h4>
             </div>
             <div id="panelFulfilled">
                 <div class="panel-body">
-                    Striped List Group
+                    @MvcHtmlString.Create(
+                        orderGrid.GetHtml(
+                            tableStyle: "table table-striped table-condensed table-hover",
+
+                            columns: orderGrid.Columns(
+                                orderGrid.Column("OrderID"),
+                                orderGrid.Column("Products")
+                            )
+
+                            ).ToHtmlString()
+                    )
                 </div>
             </div>
         </div>

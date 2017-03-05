@@ -67,5 +67,10 @@ namespace Oswam2015.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("orderGenerator", orderSizeParameter);
         }
+    
+        public virtual ObjectResult<GetOrderCount_Result> GetOrderCount()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
+        }
     }
 }

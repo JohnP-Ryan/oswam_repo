@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OSWAM_DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OSWAM_DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Order">
@@ -36,6 +36,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Parameter Name="PriceLow" Type="int" Mode="In" />
           <Parameter Name="PriceHigh" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetOrderCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="orderGenerator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="orderSize" Type="int" Mode="In" />
         </Function>
@@ -48,8 +49,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
     FROM [dbo].[Order] AS [Order]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OSWAM_DataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -86,8 +86,9 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             <Parameter Name="PriceHigh" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="orderGenerator" ReturnType="Collection(Double)">
-            <Parameter Name="orderSize" Mode="In" Type="Int32" />
+          <Parameter Name="orderSize" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
         </EntityContainer>
         <ComplexType Name="GetInventoryProducts_Result">
           <Property Type="String" Name="ID" Nullable="false" MaxLength="10" />
@@ -98,6 +99,10 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Type="Decimal" Name="Weight" Nullable="true" Precision="9" Scale="2" />
           <Property Type="Decimal" Name="Price" Nullable="true" Precision="10" />
           <Property Type="Int16" Name="Quantity" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetOrderCount_Result">
+          <Property Type="Guid" Name="OrderID" Nullable="false" />
+          <Property Type="Int32" Name="Products" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -142,6 +147,14 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="orderGenerator" FunctionName="OSWAM_DataModel.Store.orderGenerator" />
+          <FunctionImportMapping FunctionImportName="GetOrderCount" FunctionName="OSWAM_DataModel.Store.GetOrderCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetOrderCount_Result">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Products" ColumnName="Products" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
