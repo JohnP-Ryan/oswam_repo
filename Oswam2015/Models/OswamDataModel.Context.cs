@@ -58,20 +58,7 @@ namespace Oswam2015.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInventoryProducts_Result>("GetInventoryProducts", iDParameter, searchNameParameter, weightLowParameter, weightHighParameter, priceLowParameter, priceHighParameter);
         }
-
-        public virtual ObjectResult<GetOrders_Result> GetOrders(string orderID, string productID)
-        {
-            var orderIDParameter = orderID != null ?
-                new ObjectParameter("ID", orderID) :
-                new ObjectParameter("ID", typeof(string));
-
-            var productIDParameter = productID != null ?
-                new ObjectParameter("SearchName", productID) :
-                new ObjectParameter("SearchName", typeof(string));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrders_Result>("GetOrders", orderIDParameter, productIDParameter);
-        }
-
+    
         public virtual ObjectResult<Nullable<double>> orderGenerator(Nullable<int> orderSize)
         {
             var orderSizeParameter = orderSize.HasValue ?

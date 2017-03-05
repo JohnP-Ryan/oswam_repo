@@ -22,10 +22,4 @@ namespace Oswam2015.Models
         public Nullable<decimal> Price { get; set; }
         public Nullable<short> Quantity { get; set; }
     }
-
-    public partial class GetOrders_Result
-    {
-        public string OrderID { get; set; }
-        public string ProductID { get; set; }
-    }
 }
