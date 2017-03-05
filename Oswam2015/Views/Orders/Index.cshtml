@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<Oswam2015.Models.GetOrders_Result>
+@{
     ViewData["Title"] = "Orders";
     ViewBag.Page = "Orders";
+
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 35);
 }
 
 <div class="row">

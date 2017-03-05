@@ -16,11 +16,27 @@ namespace OSWAM.Controllers
 {
     public class OrdersController : Controller
     {
+        private OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
+
         // GET: /<controller>/
         public ActionResult Index()
         {
             ViewData["Message"] = "Tab2";
-            return View();
+
+            var data = dataContext.GetOrders((string)(Session["fOrderID"]), (string)(Session["fProductID"]));
+
+            return View(data.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Report(string orderID = null, string productID = null)
+        {
+
+            Session["fOrderID"] = orderID;
+            Session["fProductID"] = productID;
+
+
+            return RedirectToAction("Index");
         }
     }
 }
