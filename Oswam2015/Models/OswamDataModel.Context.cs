@@ -73,5 +73,27 @@ namespace Oswam2015.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
         }
+    
+        public virtual ObjectResult<string> GetPreferenceValue(string preferenceName)
+        {
+            var preferenceNameParameter = preferenceName != null ?
+                new ObjectParameter("PreferenceName", preferenceName) :
+                new ObjectParameter("PreferenceName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetPreferenceValue", preferenceNameParameter);
+        }
+    
+        public virtual int SetPreferenceValue(string preferenceName, string newPreferenceValue)
+        {
+            var preferenceNameParameter = preferenceName != null ?
+                new ObjectParameter("PreferenceName", preferenceName) :
+                new ObjectParameter("PreferenceName", typeof(string));
+    
+            var newPreferenceValueParameter = newPreferenceValue != null ?
+                new ObjectParameter("NewPreferenceValue", newPreferenceValue) :
+                new ObjectParameter("NewPreferenceValue", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetPreferenceValue", preferenceNameParameter, newPreferenceValueParameter);
+        }
     }
 }

@@ -7,7 +7,7 @@
       <Diagram DiagramId="5f3523fad3b5488cb574fad89146a475" Name="Diagram1">
         <EntityTypeShape EntityType="OSWAM_DataModel.Product" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OSWAM_DataModel.Order" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSWAM_DataModel.Preference" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="OSWAM_DataModel.Preference" Width="1.5" PointX="4.875" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
