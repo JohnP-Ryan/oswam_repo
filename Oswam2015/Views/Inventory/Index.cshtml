@@ -7,6 +7,11 @@
 }
 <!DOCTYPE html>
 <div>
+
+    @if(Model.ElementAt(2).DimWidth == 3)
+    {
+
+    }
     <div class="row container-fluid">
         <div class="col-md-3">
             <div class="panel panel-default">
@@ -56,6 +61,7 @@
                     @MvcHtmlString.Create(
                         grid.GetHtml(
                             tableStyle: "table table-striped table-condensed table-hover",
+                            htmlAttributes: new {id="ItemTable"},
 
                         columns: grid.Columns(
                             grid.Column("ID"),
@@ -81,19 +87,46 @@
                         <thead>
                             <tr></tr>
                         </thead>
-                        <tbody>
-                            <tr><td><h6>ID</h6></td><td><h6>B0000CDLKF</h6></td></tr>
-                            <tr><td><h6>Name</h6></td><td><h6>Best CD Ever</h6></td></tr>
-                            <tr><td><h6>Weight</h6></td><td><h6>0.14 pounds</h6></td></tr>
-                            <tr><td><h6>Length</h6></td><td><h6>5"</h6></td></tr>
-                            <tr><td><h6>Width</h6></td><td><h6>6"</h6></td></tr>
-                            <tr><td><h6>Height</h6></td><td><h6>0.25"</h6></td></tr>
-                            <tr><td><h6>Quantity</h6></td><td><h6>14</h6></td></tr>
-                            <tr><td><h6>Price</h6></td><td><h6>$14.99</h6></td></tr>
+                        <tbody id="ItemDetailsTable">
+                            <tr><td><h4>Select Item For Details</h4></td></tr>
                         </tbody>
                     </table>
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            var tr = $('#ItemTable').find('tr');
+            tr.bind('click', function (event) {
+                var tds = $(this).find('td');
+                var index = $('#ItemTable tbody tr').index(this);
+                var itemID = tds[0].innerHTML;
+
+                //alert(itemID);
+                //alert(index);
+
+                var url = '/Inventory/DetailsPartial';
+
+                $.ajax({
+                    type: 'GET',
+                    //url: '<%: Url.Action("DetailsPartial", "Inventory")%>',
+                    url: url,
+                    data: {'productID': itemID},
+                    datatype: "html",
+                    success: function(html){
+                        $("#ItemDetailsTable").html(html);
+                    }
+                });
+                return false;
+            });
+        });
+    })
+</script>
+}

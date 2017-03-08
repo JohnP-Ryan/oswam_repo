@@ -237,6 +237,7 @@
     <Content Include="Content\site.js" />
     <Content Include="Content\Site.min.css" />
     <Content Include="Content\site.min.js" />
+    <Content Include="Content\tab3.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -296,6 +297,7 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\FloorGrid\Index.cshtml" />
+    <Content Include="Views\Inventory\ProductDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

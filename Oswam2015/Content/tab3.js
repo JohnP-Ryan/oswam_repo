@@ -1,6 +1,4 @@
-// Write your Javascript code.
-
-//Tab3 Canvas
+﻿//Tab3 Canvas
 (function () {
     var canvas = document.getElementById('canvas'),
         context = canvas.getContext('2d');
@@ -49,21 +47,3 @@
         drawBoard();
     }
 })();
-
-//Inventory Details
-$(document).ready(function () {
-    $(function () {
-        alert("function running");
-        var tr = $('#ItemTable').find('tr');
-        tr.bind('click', function (event) {
-            var values = '';
-            var tds = $(this).find('td');
-
-            $.each(tds, function (index, item) {
-                values = values + 'td' + (index + 1) + ':' + item.innerHTML + '<br/>';
-            });
-            alert(values);
-
-        });
-    });
-})

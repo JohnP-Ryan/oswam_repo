@@ -24,7 +24,7 @@ namespace OSWAM.Controllers
             //check if one value is null, (is new session)
             if(!(Session["fInvWeightLow"] != null))
             {
-                System.Diagnostics.Debug.WriteLine("Session not filled");
+                //System.Diagnostics.Debug.WriteLine("Session not filled");
                 Session["fInvWeightLow"] = 0;
                 Session["fInvWeightHigh"] = 0;
                 Session["fInvPriceLow"] = 0;
@@ -40,9 +40,9 @@ namespace OSWAM.Controllers
             System.Diagnostics.Debug.WriteLine(Session["fInvPriceHigh"]);
             */
 
-            var data = dataContext.GetInventoryProducts((string)(Session["fInvID"]), (string)(Session["fInvName"]), (int)Session["fInvWeightLow"], (int)Session["fInvWeightHigh"], (int)Session["fInvPriceLow"], (int)Session["fInvPriceHigh"]);
+            var productList = dataContext.GetInventoryProducts((string)(Session["fInvID"]), (string)(Session["fInvName"]), (int)Session["fInvWeightLow"], (int)Session["fInvWeightHigh"], (int)Session["fInvPriceLow"], (int)Session["fInvPriceHigh"]);
 
-            return View(data.ToList());
+            return View(productList.ToList());
         }
 
         [HttpPost]
@@ -57,6 +57,25 @@ namespace OSWAM.Controllers
             Session["fInvPriceHigh"] = priceHigh;
 
             return RedirectToAction("Index");
+        }
+
+        public string DetailsPartial(string productID)
+        {
+            String html = "";
+
+            var productDetails = dataContext.GetInventoryProducts(productID, null, 0, 0, 0, 0);
+            var detailList = productDetails.ToList();
+
+            html += "<tr><td><h6>" + "ID" + "</h6></td><td><h6>" + detailList[0].ID + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Name" + "</h6></td><td><h6>" + detailList[0].ItemName + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Weight" + "</h6></td><td><h6>" + detailList[0].Weight + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Length" + "</h6></td><td><h6>" + detailList[0].DimLength + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Width" + "</h6></td><td><h6>" + detailList[0].DimWidth + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Height" + "</h6></td><td><h6>" + detailList[0].DimHeight + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Quantity" + "</h6></td><td><h6>" + detailList[0].Quantity + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Price" + "</h6></td><td><h6>" + detailList[0].Price + "</h6></td></tr>";
+
+            return html;
         }
     }
 }
