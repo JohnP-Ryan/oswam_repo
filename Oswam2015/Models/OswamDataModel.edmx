@@ -15,6 +15,13 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="OrderID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProductID" Type="char" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Preference">
+          <Key>
+            <PropertyRef Name="PreferenceKey" />
+          </Key>
+          <Property Name="PreferenceKey" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="PreferenceValue" Type="varchar" MaxLength="40" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
@@ -41,6 +48,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Parameter Name="orderSize" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="OSWAM_DataModelStoreContainer">
+          <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -89,6 +97,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Parameter Name="orderSize" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
+          <EntitySet Name="Preferences" EntityType="OSWAM_DataModel.Preference" />
         </EntityContainer>
         <ComplexType Name="GetInventoryProducts_Result">
           <Property Type="String" Name="ID" Nullable="false" MaxLength="10" />
@@ -104,6 +113,13 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Type="Guid" Name="OrderID" Nullable="false" />
           <Property Type="Int32" Name="Products" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Preference">
+          <Key>
+            <PropertyRef Name="PreferenceKey" />
+          </Key>
+          <Property Name="PreferenceKey" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="PreferenceValue" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -155,6 +171,14 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Preferences">
+            <EntityTypeMapping TypeName="OSWAM_DataModel.Preference">
+              <MappingFragment StoreEntitySet="Preference">
+                <ScalarProperty Name="PreferenceValue" ColumnName="PreferenceValue" />
+                <ScalarProperty Name="PreferenceKey" ColumnName="PreferenceKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

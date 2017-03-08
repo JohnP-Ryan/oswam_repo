@@ -225,6 +225,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OswamDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Preference.cs">
+      <DependentUpon>OswamDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
       <DependentUpon>OswamDataModel.tt</DependentUpon>
     </Compile>

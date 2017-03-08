@@ -29,6 +29,7 @@ namespace Oswam2015.Models
     
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Preference> Preferences { get; set; }
     
         public virtual ObjectResult<GetInventoryProducts_Result> GetInventoryProducts(string iD, string searchName, Nullable<int> weightLow, Nullable<int> weightHigh, Nullable<int> priceLow, Nullable<int> priceHigh)
         {
