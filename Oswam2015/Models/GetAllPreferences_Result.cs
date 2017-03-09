@@ -10,9 +10,8 @@
 namespace Oswam2015.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Preference
+    public partial class GetAllPreferences_Result
     {
         public int ID { get; set; }
         public string PreferenceKey { get; set; }

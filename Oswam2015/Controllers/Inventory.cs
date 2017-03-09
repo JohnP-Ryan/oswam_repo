@@ -24,21 +24,11 @@ namespace OSWAM.Controllers
             //check if one value is null, (is new session)
             if(!(Session["fInvWeightLow"] != null))
             {
-                //System.Diagnostics.Debug.WriteLine("Session not filled");
                 Session["fInvWeightLow"] = 0;
                 Session["fInvWeightHigh"] = 0;
                 Session["fInvPriceLow"] = 0;
                 Session["fInvPriceHigh"] = 0;
             }
-
-            /* Debug form data printouts
-            System.Diagnostics.Debug.WriteLine(Session["fInvID"]);
-            System.Diagnostics.Debug.WriteLine(Session["fInvName"]);
-            System.Diagnostics.Debug.WriteLine(Session["fInvWeightLow"]);
-            System.Diagnostics.Debug.WriteLine(Session["fInvWeightHigh"]);
-            System.Diagnostics.Debug.WriteLine(Session["fInvPriceLow"]);
-            System.Diagnostics.Debug.WriteLine(Session["fInvPriceHigh"]);
-            */
 
             var productList = dataContext.GetInventoryProducts((string)(Session["fInvID"]), (string)(Session["fInvName"]), (int)Session["fInvWeightLow"], (int)Session["fInvWeightHigh"], (int)Session["fInvPriceLow"], (int)Session["fInvPriceHigh"]);
 

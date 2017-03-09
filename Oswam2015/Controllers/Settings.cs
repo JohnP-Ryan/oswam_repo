@@ -13,13 +13,17 @@ using Oswam2015.Models;
 
 namespace OSWAM.Controllers
 {
+
     public class SettingsController : Controller
     {
-        // GET: /<controller>/
+        private OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
+
         public ActionResult Index()
         {
-            ViewData["Message"] = "Tab4";
-            return View();
+
+            var preferenceList = dataContext.GetAllPreferences();
+            
+            return View(preferenceList.ToList());
         }
     }
 }

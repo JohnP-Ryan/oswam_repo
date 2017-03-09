@@ -74,26 +74,31 @@ namespace Oswam2015.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
         }
     
-        public virtual ObjectResult<string> GetPreferenceValue(string preferenceName)
+        public virtual ObjectResult<string> GetPreferenceValue(Nullable<int> preferenceID)
         {
-            var preferenceNameParameter = preferenceName != null ?
-                new ObjectParameter("PreferenceName", preferenceName) :
-                new ObjectParameter("PreferenceName", typeof(string));
+            var preferenceIDParameter = preferenceID.HasValue ?
+                new ObjectParameter("PreferenceID", preferenceID) :
+                new ObjectParameter("PreferenceID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetPreferenceValue", preferenceNameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetPreferenceValue", preferenceIDParameter);
         }
     
-        public virtual int SetPreferenceValue(string preferenceName, string newPreferenceValue)
+        public virtual int SetPreferenceValue(Nullable<int> preferenceID, string newPreferenceValue)
         {
-            var preferenceNameParameter = preferenceName != null ?
-                new ObjectParameter("PreferenceName", preferenceName) :
-                new ObjectParameter("PreferenceName", typeof(string));
+            var preferenceIDParameter = preferenceID.HasValue ?
+                new ObjectParameter("PreferenceID", preferenceID) :
+                new ObjectParameter("PreferenceID", typeof(int));
     
             var newPreferenceValueParameter = newPreferenceValue != null ?
                 new ObjectParameter("NewPreferenceValue", newPreferenceValue) :
                 new ObjectParameter("NewPreferenceValue", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetPreferenceValue", preferenceNameParameter, newPreferenceValueParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetPreferenceValue", preferenceIDParameter, newPreferenceValueParameter);
+        }
+    
+        public virtual ObjectResult<GetAllPreferences_Result> GetAllPreferences()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllPreferences_Result>("GetAllPreferences");
         }
     }
 }
