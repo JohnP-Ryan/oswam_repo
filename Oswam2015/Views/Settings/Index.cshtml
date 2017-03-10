@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Settings";
     ViewBag.Page = "Settings";
+
+    int totalWarehouseArea = Model.ElementAt(4).PreferenceValue.Value * Model.ElementAt(5).PreferenceValue.Value;
 }
 
 <!DOCTYPE html>
@@ -10,7 +12,7 @@
         <div class="col-sm-2 col-md-2">
             <div class="panel panel-default flex-col">
                 <div class="panel-heading">
-                    <h4 class="">Inventory Config.</h4>
+                    <h4 class="">Inventory Config</h4>
                 </div>
                 <div class="panel-body flex-grow">
                     <ul class="list-group">
@@ -26,7 +28,7 @@
         <div class="col-sm-2 col-md-2">
             <div class="panel panel-default flex-col">
                 <div class="panel-heading">
-                    <h4 class=""></h4>
+                    <h4 class="">Orders Config</h4>
                 </div>
                 <div class="panel-body flex-grow">
                     <ul class="list-group">
@@ -50,12 +52,12 @@
                     <table class="table table-bordered">
                         <thead><tr></tr></thead>
                         <tbody>
-                            <tr><td><button class="btn-primary">Num Shelves</button>@Model.ElementAt(0).PreferenceValue</td></tr>
-                            <tr><td><button class="btn-primary">Shelf Height</button>@Model.ElementAt(1).PreferenceValue '</td></tr>
-                            <tr><td><button class="btn-primary">Shelf Side Length</button>@Model.ElementAt(2).PreferenceValue '</td></tr>
-                            <tr><td><button class="btn-primary">Shelf Weight Limit</button>@Model.ElementAt(3).PreferenceValue pounds</td></tr>
-                            <tr><td><button class="btn-primary">Warehouse Length (ft)</button>@Model.ElementAt(4).PreferenceValue '</td></tr>
-                            <tr><td><button class="btn-primary">Warehouse Width (ft)</button>@Model.ElementAt(5).PreferenceValue '</td></tr>
+                            <tr><td><button class="btn-primary">Num Shelves</button> &nbsp; @Model.ElementAt(0).PreferenceValue</td></tr>
+                            <tr><td><button class="btn-primary">Shelf Height</button> &nbsp;@Model.ElementAt(1).PreferenceValue '</td></tr>
+                            <tr><td><button class="btn-primary">Shelf Side Length</button> &nbsp; @Model.ElementAt(2).PreferenceValue '</td></tr>
+                            <tr><td><button class="btn-primary">Shelf Weight Limit</button> &nbsp; @Model.ElementAt(3).PreferenceValue pounds</td></tr>
+                            <tr><td><button class="btn-primary">Warehouse Length (ft)</button> &nbsp; @Model.ElementAt(4).PreferenceValue '</td></tr>
+                            <tr><td><button class="btn-primary">Warehouse Width (ft)</button> &nbsp; @Model.ElementAt(5).PreferenceValue '</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -68,15 +70,14 @@
                 </div>
                 <div class="panel-body flex-grow">
                     <ul class="list-group">
-                        <li class="list-group-item">Total Warehouse Sq Ft:</li>
-                        <li class="list-group-item">Total Shelf Capacity cu ft:</li>
-                        <li class="list-group-item">Total Items Stored:</li>
-                        <li class="list-group-item">Average Order Completion Time:</li>
+                        <li class="list-group-item">Total Warehouse Sq Ft: &nbsp; @totalWarehouseArea</li>
+                        <li class="list-group-item">Total Shelf Capacity cu ft: &nbsp; </li>
+                        <li class="list-group-item">Total Items Stored: &nbsp; </li>
+                        <li class="list-group-item">Average Order Completion Time: &nbsp; </li>
                         <li class="list-group-item"></li>
                         <li class="list-group-item"></li>
                         <li class="list-group-item"></li>
                     </ul>
-
                 </div>
             </div>
         </div>

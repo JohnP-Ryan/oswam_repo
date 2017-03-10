@@ -5,10 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5f3523fad3b5488cb574fad89146a475" Name="Diagram1">
-        <EntityTypeShape EntityType="OSWAM_DataModel.Product" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSWAM_DataModel.Order" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSWAM_DataModel.Preference" Width="1.5" PointX="4.625" PointY="0.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="OSWAM_DataModel.Product" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSWAM_DataModel.Order" Width="1.5" PointX="0.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSWAM_DataModel.Preference" Width="1.5" PointX="2.625" PointY="0.625" />
+        <EntityTypeShape EntityType="OSWAM_DataModel.Shelf" Width="1.5" PointX="5.875" PointY="3.125" />
+        <EntityTypeShape EntityType="OSWAM_DataModel.LocalInventory" Width="1.5" PointX="3.375" PointY="3.25" />
+        <AssociationConnector Association="OSWAM_DataModel.FK__LocalInve__Produ__70DDC3D8" />
+        <AssociationConnector Association="OSWAM_DataModel.FK__LocalInve__Shelf__6FE99F9F" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

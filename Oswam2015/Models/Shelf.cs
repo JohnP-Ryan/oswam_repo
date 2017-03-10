@@ -12,22 +12,19 @@ namespace Oswam2015.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Shelf
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Shelf()
         {
             this.LocalInventories = new HashSet<LocalInventory>();
         }
     
-        public string ID { get; set; }
-        public string ItemName { get; set; }
-        public Nullable<decimal> DimLength { get; set; }
-        public Nullable<decimal> DimWidth { get; set; }
-        public Nullable<decimal> DimHeight { get; set; }
-        public Nullable<decimal> Weight { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public Nullable<short> Quantity { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> LocationX { get; set; }
+        public Nullable<int> LocationY { get; set; }
+        public decimal maxCapacity { get; set; }
+        public Nullable<decimal> currentCapacity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LocalInventory> LocalInventories { get; set; }

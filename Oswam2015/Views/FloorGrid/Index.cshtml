@@ -1,8 +1,8 @@
-﻿@{
+﻿@model 
+@{
     ViewData["Title"] = "Floor Grid";
     ViewBag.Page = "FloorGrid";
 }
-
 
 <canvas id="canvas"></canvas>
 
@@ -16,12 +16,12 @@
             window.addEventListener('resize', resizeCanvas, false);
 
             function resizeCanvas() {
-                canvas.width = window.innerWidth - 20;
+                canvas.width = window.innerWidth - 40;
                 canvas.height = window.innerHeight - 250;
 
                 /**
-                 * Your drawings need to be inside this function otherwise they will be reset when 
-                    * you resize the browser window and the canvas goes will be cleared.
+                 *     Your drawings need to be inside this function otherwise they will be reset when 
+                 *     you resize the browser window and the canvas goes will be cleared.
                  */
                 drawStuff();
             }
@@ -43,7 +43,6 @@
                         context.lineTo(0.5 + x + p, bh + p);
                     }
 
-
                     for (var x = 0; x <= bh; x += 40) {
                         context.moveTo(p, 0.5 + x + p);
                         context.lineTo(bw + p, 0.5 + x + p);
@@ -52,7 +51,6 @@
                     context.strokeStyle = "black";
                     context.stroke();
                 }
-
                 drawBoard();
             }
         })();
