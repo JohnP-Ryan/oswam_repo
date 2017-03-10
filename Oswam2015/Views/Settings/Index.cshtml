@@ -46,18 +46,24 @@
         <div class="col-sm-3 col-md-3">
             <div class="panel panel-default flex-col">
                 <div class="panel-heading">
-                    <h4 class="">Warehous Config</h4>
+                    <h4 class="">Warehouse Config</h4>
                 </div>
                 <div class="panel-body flex-grow">
                     <table class="table table-bordered">
                         <thead><tr></tr></thead>
                         <tbody>
-                            <tr><td><button class="btn-primary">Num Shelves</button> &nbsp; @Model.ElementAt(0).PreferenceValue</td></tr>
-                            <tr><td><button class="btn-primary">Shelf Height</button> &nbsp;@Model.ElementAt(1).PreferenceValue '</td></tr>
-                            <tr><td><button class="btn-primary">Shelf Side Length</button> &nbsp; @Model.ElementAt(2).PreferenceValue '</td></tr>
-                            <tr><td><button class="btn-primary">Shelf Weight Limit</button> &nbsp; @Model.ElementAt(3).PreferenceValue pounds</td></tr>
-                            <tr><td><button class="btn-primary">Warehouse Length (ft)</button> &nbsp; @Model.ElementAt(4).PreferenceValue '</td></tr>
-                            <tr><td><button class="btn-primary">Warehouse Width (ft)</button> &nbsp; @Model.ElementAt(5).PreferenceValue '</td></tr>
+                            <tr><td><button class="btn btn-primary prefTextField" id="pref3But1">Num Shelves</button> 
+                                <input type="text" id="pref3In1" data-id="0" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(0).PreferenceValue" /></td></tr>
+                            <tr><td><button class="btn btn-primary prefTextField" id="pref3But2">Shelf Height</button> 
+                                <input type="text" id="pref3In2" data-id="1" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(1).PreferenceValue" /> feet</td></tr>
+                            <tr><td><button class="btn btn-primary prefTextField" id="pref3But3">Shelf Side Length</button> 
+                                <input type="text" id="pref3In3" data-id="2" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(2).PreferenceValue" /> feet</td></tr>
+                            <tr><td><button class="btn btn-primary prefTextField" id="pref3But4">Shelf Weight Limit</button> 
+                                <input type="text" id="pref3In4" data-id="3" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(3).PreferenceValue" /> pounds</td></tr>
+                            <tr><td><button class="btn btn-primary prefTextField" id="pref3But5">Warehouse Length (ft)</button> 
+                                <input type="text" id="pref3In5" data-id="4" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(4).PreferenceValue" /> feet</td></tr>
+                            <tr><td><button class="btn btn-primary prefTextField" id="pref3But6">Warehouse Width (ft)</button> 
+                                <input type="text" id="pref3In6" data-id="5" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(5).PreferenceValue" /> feet</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -83,3 +89,36 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <script type="text/javascript">
+        $("input").on("keydown", function save(e) {
+            if (e.keyCode == 13) {
+                savePreference(this);
+            }
+        });
+
+        function savePreference(textField) {
+            alert($(textField).val()); //text entry value
+            alert($(textField).attr("data-id")); //preference id number
+        }
+
+        document.getElementById('pref3But1').onclick = function () {
+            document.getElementById('pref3In1').focus();
+        };
+        document.getElementById('pref3But2').onclick = function () {
+            document.getElementById('pref3In2').focus();
+        };
+        document.getElementById('pref3But3').onclick = function () {
+            document.getElementById('pref3In3').focus();
+        };
+        document.getElementById('pref3But4').onclick = function () {
+            document.getElementById('pref3In4').focus();
+        };
+        document.getElementById('pref3But5').onclick = function () {
+            document.getElementById('pref3In5').focus();
+        };
+        document.getElementById('pref3But6').onclick = function () {
+            document.getElementById('pref3In6').focus();
+        };
+    </script>    
+}
