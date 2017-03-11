@@ -76,15 +76,6 @@ namespace Oswam2015.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
         }
     
-        public virtual ObjectResult<string> GetPreferenceValue(Nullable<int> preferenceID)
-        {
-            var preferenceIDParameter = preferenceID.HasValue ?
-                new ObjectParameter("PreferenceID", preferenceID) :
-                new ObjectParameter("PreferenceID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetPreferenceValue", preferenceIDParameter);
-        }
-    
         public virtual int SetPreferenceValue(Nullable<int> preferenceID, Nullable<int> newPreferenceValue)
         {
             var preferenceIDParameter = preferenceID.HasValue ?
@@ -101,6 +92,15 @@ namespace Oswam2015.Models
         public virtual ObjectResult<GetAllPreferences_Result> GetAllPreferences()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllPreferences_Result>("GetAllPreferences");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetPreferenceValue(string preferenceKey)
+        {
+            var preferenceKeyParameter = preferenceKey != null ?
+                new ObjectParameter("PreferenceKey", preferenceKey) :
+                new ObjectParameter("PreferenceKey", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetPreferenceValue", preferenceKeyParameter);
         }
     }
 }

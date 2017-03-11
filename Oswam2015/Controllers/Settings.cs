@@ -32,7 +32,7 @@ namespace OSWAM.Controllers
         {
             dataContext.SetPreferenceValue(preferenceID, newPreferenceValue);
 
-            System.Diagnostics.Debug.WriteLine("ID: " + preferenceID + "  Value: " + newPreferenceValue);
+            //System.Diagnostics.Debug.WriteLine("ID: " + preferenceID + "  Value: " + newPreferenceValue);
 
             return RedirectToAction("Index");
         }

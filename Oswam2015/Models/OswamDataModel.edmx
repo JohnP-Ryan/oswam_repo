@@ -90,7 +90,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
         </Function>
         <Function Name="GetOrderCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetPreferenceValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PreferenceID" Type="int" Mode="In" />
+          <Parameter Name="PreferenceKey" Type="varchar" Mode="In" />
         </Function>
         <Function Name="orderGenerator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="orderSize" Type="int" Mode="In" />
@@ -160,9 +160,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Parameter Name="orderSize" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
-          <FunctionImport Name="GetPreferenceValue" ReturnType="Collection(String)">
-          <Parameter Name="PreferenceID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SetPreferenceValue">
             <Parameter Name="PreferenceID" Mode="In" Type="Int32" />
             <Parameter Name="NewPreferenceValue" Mode="In" Type="Int32" />
@@ -179,6 +176,9 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             <End Role="Shelf" EntitySet="Shelves" />
             <End Role="LocalInventory" EntitySet="LocalInventories" />
           </AssociationSet>
+          <FunctionImport Name="GetPreferenceValue" ReturnType="Collection(Int32)">
+            <Parameter Name="PreferenceKey" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetInventoryProducts_Result">
           <Property Type="String" Name="ID" Nullable="false" MaxLength="10" />
@@ -304,7 +304,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetPreferenceValue" FunctionName="OSWAM_DataModel.Store.GetPreferenceValue" />
           <FunctionImportMapping FunctionImportName="SetPreferenceValue" FunctionName="OSWAM_DataModel.Store.SetPreferenceValue" />
           <FunctionImportMapping FunctionImportName="GetAllPreferences" FunctionName="OSWAM_DataModel.Store.GetAllPreferences">
             <ResultMapping>
@@ -344,6 +343,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPreferenceValue" FunctionName="OSWAM_DataModel.Store.GetPreferenceValue" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

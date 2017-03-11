@@ -19,8 +19,9 @@ namespace OSWAM.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
-            ViewData["Message"] = "Tab3";
-            return View();
+            CanvasModel floorGrid = new CanvasModel();
+            
+            return View(floorGrid);
         }
     }
 }
