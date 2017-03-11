@@ -97,7 +97,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
         </Function>
         <Function Name="SetPreferenceValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PreferenceID" Type="int" Mode="In" />
-          <Parameter Name="NewPreferenceValue" Type="varchar" Mode="In" />
+          <Parameter Name="NewPreferenceValue" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="OSWAM_DataModelStoreContainer">
           <EntitySet Name="LocalInventory" EntityType="Self.LocalInventory" Schema="dbo" store:Type="Tables" />
@@ -165,7 +165,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           </FunctionImport>
           <FunctionImport Name="SetPreferenceValue">
             <Parameter Name="PreferenceID" Mode="In" Type="Int32" />
-            <Parameter Name="NewPreferenceValue" Mode="In" Type="String" />
+            <Parameter Name="NewPreferenceValue" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAllPreferences" ReturnType="Collection(OSWAM_DataModel.GetAllPreferences_Result)" />
           <EntitySet Name="Preferences" EntityType="OSWAM_DataModel.Preference" />

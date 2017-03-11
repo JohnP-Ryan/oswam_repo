@@ -18,12 +18,23 @@ namespace OSWAM.Controllers
     {
         private OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
 
+        [OutputCache(Duration = 0)]
         public ActionResult Index()
         {
 
             var preferenceList = dataContext.GetAllPreferences();
             
             return View(preferenceList.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult SetPreference(int preferenceID, int newPreferenceValue)
+        {
+            dataContext.SetPreferenceValue(preferenceID, newPreferenceValue);
+
+            System.Diagnostics.Debug.WriteLine("ID: " + preferenceID + "  Value: " + newPreferenceValue);
+
+            return RedirectToAction("Index");
         }
     }
 }

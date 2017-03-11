@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="col-sm-3 col-md-3">
-            <div class="panel panel-default flex-col">
+            <div class="pmanel panel-default flex-col">
                 <div class="panel-heading">
                     <h4 class="">Warehouse Config</h4>
                 </div>
@@ -98,8 +98,23 @@
         });
 
         function savePreference(textField) {
-            alert($(textField).val()); //text entry value
-            alert($(textField).attr("data-id")); //preference id number
+            var preferenceID = $(textField).attr("data-id");
+            var newPreferenceValue = $(textField).val();
+
+            //alert(preferenceID); //preference id number
+            //alert(newPreferenceValue); //text entry value
+
+            $.ajax({
+                type: 'POST',
+                url: '/Settings/SetPreference',
+                data: {
+                    'preferenceID': preferenceID,
+                    'newPreferenceValue': newPreferenceValue
+                },
+                success: function () {
+                    window.location.reload();
+                }
+            });
         }
 
         document.getElementById('pref3But1').onclick = function () {

@@ -85,15 +85,15 @@ namespace Oswam2015.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetPreferenceValue", preferenceIDParameter);
         }
     
-        public virtual int SetPreferenceValue(Nullable<int> preferenceID, string newPreferenceValue)
+        public virtual int SetPreferenceValue(Nullable<int> preferenceID, Nullable<int> newPreferenceValue)
         {
             var preferenceIDParameter = preferenceID.HasValue ?
                 new ObjectParameter("PreferenceID", preferenceID) :
                 new ObjectParameter("PreferenceID", typeof(int));
     
-            var newPreferenceValueParameter = newPreferenceValue != null ?
+            var newPreferenceValueParameter = newPreferenceValue.HasValue ?
                 new ObjectParameter("NewPreferenceValue", newPreferenceValue) :
-                new ObjectParameter("NewPreferenceValue", typeof(string));
+                new ObjectParameter("NewPreferenceValue", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetPreferenceValue", preferenceIDParameter, newPreferenceValueParameter);
         }
