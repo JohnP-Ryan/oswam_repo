@@ -8,26 +8,82 @@
 
 @section Scripts {
     <script type="text/javascript">
+
+        var cellSizePx = 0;
+        var sideMargin = 120;
+        var placeMode = true;
+        var rowLength = (@Model.getXCellDimension());
+        var columnLength = (@Model.getYCellDimension());
+
+        //alert("" + window.innerHeight);
+        //alert("" + window.innerWidth);
+
         (function () {
             var canvas = document.getElementById('canvas'),
-                context = canvas.getContext('2d');
+            context = canvas.getContext('2d');
+
+            canvas.addEventListener('click', handleClick);
+
 
             // resize the canvas to fill browser window dynamically
             window.addEventListener('resize', resizeCanvas, false);
 
             function resizeCanvas() {
-                canvas.width = window.innerWidth - 40;
-                canvas.height = window.innerHeight - 250;
+                //Determine best cell size to fit viewport
+                if((window.innerWidth - sideMargin) / rowLength >= 60){
+                    cellSizePx = 60;
+                }
+                else if((window.innerWidth - sideMargin) / rowLength >= 50){
+                    cellSizePx = 50;
+                }
+                else if((window.innerWidth - sideMargin) / rowLength >= 40){
+                    cellSizePx = 40;
+                }
+                else if((window.innerWidth - sideMargin) / rowLength >= 30){
+                    cellSizePx = 30;
+                }
+                else if((window.innerWidth - sideMargin) / rowLength >= 20 ){
+                    cellSizePx = 20;
+                }
+                else if ((window.innerWidth - sideMargin) / rowLength >= 10){
+                    cellSizePx = 10
+                }
+                else
+                {
+                    alert("Unsupported Viewport size: more horizontal resolution required for configured warehouse");
+                }
+                canvas.width = rowLength * cellSizePx;
+                canvas.height = columnLength * cellSizePx;
+
+                //alert("" + cellSizePx);
 
                 /**
-                 *     Your drawings need to be inside this function otherwise they will be reset when 
+                 *     Your drawings need to be inside this function otherwise they will be reset when
                  *     you resize the browser window and the canvas goes will be cleared.
                  */
-                drawStuff();
+                drawCells();
             }
             resizeCanvas();
 
-            function drawStuff() {
+            function drawCells() {
+                context.beginPath();
+                context.fillStyle = "white";
+                context.lineWidth = 2;
+                context.strokeStyle = 'black';
+
+                for (var row = 0; row < columnLength; row++){
+                    for (var column = 0; column < rowLength; column++){
+                        var xLocation = column * cellSizePx;
+                        var yLocation = row * cellSizePx;
+                        context.rect(xLocation, yLocation, cellSizePx, cellSizePx);
+                        context.fill();
+                        context.stroke();
+                    }
+                }
+                context.closePath();
+
+
+                /*
                 //grid width and height
                 var bw = canvas.width;
                 var bh = canvas.height;
@@ -38,12 +94,12 @@
                 var ch = bh + (p * 2) + 1;
 
                 function drawBoard() {
-                    for (var x = 0; x <= bw; x += 40) {
+                    for (var x = 0; x <= bw; x += cellSizePx) {
                         context.moveTo(0.5 + x + p, p);
                         context.lineTo(0.5 + x + p, bh + p);
                     }
 
-                    for (var x = 0; x <= bh; x += 40) {
+                    for (var x = 0; x <= bh; x += cellSizePx) {
                         context.moveTo(p, 0.5 + x + p);
                         context.lineTo(bw + p, 0.5 + x + p);
                     }
@@ -51,7 +107,16 @@
                     context.strokeStyle = "black";
                     context.stroke();
                 }
-                drawBoard();
+                */
+                //drawCells();
+            }
+
+            function handleClick(e) {
+                context.fillStyle = "black";
+
+                context.fillRect(Math.floor(e.offsetX / cellSizePx) * cellSizePx,
+                  Math.floor(e.offsetY / cellSizePx) * cellSizePx,
+                  cellSizePx, cellSizePx);
             }
         })();
     </script>

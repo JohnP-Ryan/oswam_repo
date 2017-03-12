@@ -20,6 +20,9 @@ namespace Oswam2015.Models
 
             System.Diagnostics.Debug.WriteLine("" + xCellDimension + "   " + yCellDimension);
         }
+
+        public int getXCellDimension() { return xCellDimension; }
+        public int getYCellDimension() { return yCellDimension; }
     }
 
 
