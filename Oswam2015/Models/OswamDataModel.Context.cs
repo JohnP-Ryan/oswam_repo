@@ -102,5 +102,10 @@ namespace Oswam2015.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetPreferenceValue", preferenceKeyParameter);
         }
+    
+        public virtual ObjectResult<GetAllShelves_Result> GetAllShelves()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllShelves_Result>("GetAllShelves");
+        }
     }
 }

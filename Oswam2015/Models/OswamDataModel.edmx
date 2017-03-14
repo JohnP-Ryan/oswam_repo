@@ -52,8 +52,8 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="LocationX" Type="int" />
           <Property Name="LocationY" Type="int" />
-          <Property Name="maxCapacity" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="currentCapacity" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="availableVolume" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="availableWeight" Type="decimal" Precision="9" Scale="2" />
         </EntityType>
         <Association Name="FK__LocalInve__Produ__70DDC3D8">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
@@ -80,6 +80,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <Function Name="GetAllPreferences" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllShelves" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetInventoryProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="char" Mode="In" />
           <Parameter Name="SearchName" Type="varchar" Mode="In" />
@@ -134,8 +135,8 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="DimHeight" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="Weight" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="Quantity" Type="Int16" />
           <NavigationProperty Name="LocalInventories" Relationship="OSWAM_DataModel.FK__LocalInve__Produ__70DDC3D8" FromRole="Product" ToRole="LocalInventory" />
+          <Property Name="Quantity" Type="Int16" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -177,8 +178,9 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             <End Role="LocalInventory" EntitySet="LocalInventories" />
           </AssociationSet>
           <FunctionImport Name="GetPreferenceValue" ReturnType="Collection(Int32)">
-            <Parameter Name="PreferenceKey" Mode="In" Type="String" />
+          <Parameter Name="PreferenceKey" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetAllShelves" ReturnType="Collection(OSWAM_DataModel.GetAllShelves_Result)" />
           </EntityContainer>
         <ComplexType Name="GetInventoryProducts_Result">
           <Property Type="String" Name="ID" Nullable="false" MaxLength="10" />
@@ -214,9 +216,9 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="LocationX" Type="Int32" />
           <Property Name="LocationY" Type="Int32" />
-          <Property Name="maxCapacity" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="currentCapacity" Type="Decimal" Precision="9" Scale="2" />
           <NavigationProperty Name="LocalInventories" Relationship="OSWAM_DataModel.FK__LocalInve__Shelf__6FE99F9F" FromRole="Shelf" ToRole="LocalInventory" />
+          <Property Name="availableVolume" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="availableWeight" Type="Decimal" Precision="9" Scale="2" />
         </EntityType>
         <EntityType Name="LocalInventory">
           <Key>
@@ -253,6 +255,13 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetAllShelves_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="LocationX" Nullable="true" />
+          <Property Type="Int32" Name="LocationY" Nullable="true" />
+          <Property Type="Decimal" Name="availableVolume" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="availableWeight" Nullable="true" Precision="9" Scale="2" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -262,6 +271,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="OSWAM_DataModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="DimLength" ColumnName="DimLength" />
@@ -269,7 +279,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
                 <ScalarProperty Name="DimHeight" ColumnName="DimHeight" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -326,8 +335,8 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <EntitySetMapping Name="Shelves">
             <EntityTypeMapping TypeName="OSWAM_DataModel.Shelf">
               <MappingFragment StoreEntitySet="Shelf">
-                <ScalarProperty Name="currentCapacity" ColumnName="currentCapacity" />
-                <ScalarProperty Name="maxCapacity" ColumnName="maxCapacity" />
+                <ScalarProperty Name="availableWeight" ColumnName="availableWeight" />
+                <ScalarProperty Name="availableVolume" ColumnName="availableVolume" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -344,6 +353,17 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetPreferenceValue" FunctionName="OSWAM_DataModel.Store.GetPreferenceValue" />
+          <FunctionImportMapping FunctionImportName="GetAllShelves" FunctionName="OSWAM_DataModel.Store.GetAllShelves">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetAllShelves_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LocationX" ColumnName="LocationX" />
+                <ScalarProperty Name="LocationY" ColumnName="LocationY" />
+                <ScalarProperty Name="availableVolume" ColumnName="availableVolume" />
+                <ScalarProperty Name="availableWeight" ColumnName="availableWeight" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
