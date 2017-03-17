@@ -19,6 +19,5 @@ namespace Oswam2015.Models
         public int Quantity { get; set; }
     
         public virtual Product Product { get; set; }
-        public virtual Shelf Shelf { get; set; }
     }
 }

@@ -14,19 +14,11 @@ namespace Oswam2015.Models
     
     public partial class Shelf
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Shelf()
-        {
-            this.LocalInventories = new HashSet<LocalInventory>();
-        }
-    
         public int ID { get; set; }
-        public Nullable<int> LocationX { get; set; }
-        public Nullable<int> LocationY { get; set; }
+        public int LocationX { get; set; }
+        public int LocationY { get; set; }
         public Nullable<decimal> availableVolume { get; set; }
         public Nullable<decimal> availableWeight { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LocalInventory> LocalInventories { get; set; }
+        public bool CellType { get; set; }
     }
 }

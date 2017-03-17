@@ -30,8 +30,8 @@ namespace Oswam2015.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Preference> Preferences { get; set; }
-        public virtual DbSet<Shelf> Shelves { get; set; }
         public virtual DbSet<LocalInventory> LocalInventories { get; set; }
+        public virtual DbSet<Shelf> Shelves { get; set; }
     
         public virtual ObjectResult<GetInventoryProducts_Result> GetInventoryProducts(string iD, string searchName, Nullable<int> weightLow, Nullable<int> weightHigh, Nullable<int> priceLow, Nullable<int> priceHigh)
         {
@@ -106,6 +106,48 @@ namespace Oswam2015.Models
         public virtual ObjectResult<GetAllShelves_Result> GetAllShelves()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllShelves_Result>("GetAllShelves");
+        }
+    
+        public virtual int DeleteShelf(Nullable<int> iD, Nullable<int> locationX, Nullable<int> locationY)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var locationXParameter = locationX.HasValue ?
+                new ObjectParameter("LocationX", locationX) :
+                new ObjectParameter("LocationX", typeof(int));
+    
+            var locationYParameter = locationY.HasValue ?
+                new ObjectParameter("LocationY", locationY) :
+                new ObjectParameter("LocationY", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteShelf", iDParameter, locationXParameter, locationYParameter);
+        }
+    
+        public virtual int CreateShelf(Nullable<int> locationX, Nullable<int> locationY, Nullable<decimal> availableVolume, Nullable<decimal> availableWeight, Nullable<bool> cellType)
+        {
+            var locationXParameter = locationX.HasValue ?
+                new ObjectParameter("LocationX", locationX) :
+                new ObjectParameter("LocationX", typeof(int));
+    
+            var locationYParameter = locationY.HasValue ?
+                new ObjectParameter("LocationY", locationY) :
+                new ObjectParameter("LocationY", typeof(int));
+    
+            var availableVolumeParameter = availableVolume.HasValue ?
+                new ObjectParameter("availableVolume", availableVolume) :
+                new ObjectParameter("availableVolume", typeof(decimal));
+    
+            var availableWeightParameter = availableWeight.HasValue ?
+                new ObjectParameter("availableWeight", availableWeight) :
+                new ObjectParameter("availableWeight", typeof(decimal));
+    
+            var cellTypeParameter = cellType.HasValue ?
+                new ObjectParameter("CellType", cellType) :
+                new ObjectParameter("CellType", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateShelf", locationXParameter, locationYParameter, availableVolumeParameter, availableWeightParameter, cellTypeParameter);
         }
     }
 }

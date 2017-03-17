@@ -47,15 +47,17 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
         </EntityType>
         <EntityType Name="Shelf">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="LocationX" />
+            <PropertyRef Name="LocationY" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="LocationX" Type="int" />
-          <Property Name="LocationY" Type="int" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationX" Type="int" Nullable="false" />
+          <Property Name="LocationY" Type="int" Nullable="false" />
           <Property Name="availableVolume" Type="decimal" Precision="9" Scale="2" />
           <Property Name="availableWeight" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="CellType" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__LocalInve__Produ__70DDC3D8">
+        <Association Name="FK__LocalInve__Produ__08B54D69">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="LocalInventory" Type="Self.LocalInventory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -67,18 +69,18 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LocalInve__Shelf__6FE99F9F">
-          <End Role="Shelf" Type="Self.Shelf" Multiplicity="1" />
-          <End Role="LocalInventory" Type="Self.LocalInventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shelf">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="LocalInventory">
-              <PropertyRef Name="ShelfID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <Function Name="CreateShelf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LocationX" Type="int" Mode="In" />
+          <Parameter Name="LocationY" Type="int" Mode="In" />
+          <Parameter Name="availableVolume" Type="decimal" Mode="In" />
+          <Parameter Name="availableWeight" Type="decimal" Mode="In" />
+          <Parameter Name="CellType" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="DeleteShelf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="LocationX" Type="int" Mode="In" />
+          <Parameter Name="LocationY" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetAllPreferences" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllShelves" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetInventoryProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -111,12 +113,8 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
     [Order].[ProductID] AS [ProductID]
     FROM [dbo].[Order] AS [Order]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__LocalInve__Produ__70DDC3D8" Association="Self.FK__LocalInve__Produ__70DDC3D8">
+          <AssociationSet Name="FK__LocalInve__Produ__08B54D69" Association="Self.FK__LocalInve__Produ__08B54D69">
             <End Role="Product" EntitySet="Product" />
-            <End Role="LocalInventory" EntitySet="LocalInventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LocalInve__Shelf__6FE99F9F" Association="Self.FK__LocalInve__Shelf__6FE99F9F">
-            <End Role="Shelf" EntitySet="Shelf" />
             <End Role="LocalInventory" EntitySet="LocalInventory" />
           </AssociationSet>
         </EntityContainer>
@@ -135,8 +133,8 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="DimHeight" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="Weight" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="4" />
-          <NavigationProperty Name="LocalInventories" Relationship="OSWAM_DataModel.FK__LocalInve__Produ__70DDC3D8" FromRole="Product" ToRole="LocalInventory" />
           <Property Name="Quantity" Type="Int16" />
+          <NavigationProperty Name="LocalInventories" Relationship="OSWAM_DataModel.FK__LocalInve__Produ__08B54D69" FromRole="Product" ToRole="LocalInventory" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -167,20 +165,28 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           </FunctionImport>
           <FunctionImport Name="GetAllPreferences" ReturnType="Collection(OSWAM_DataModel.GetAllPreferences_Result)" />
           <EntitySet Name="Preferences" EntityType="OSWAM_DataModel.Preference" />
-          <EntitySet Name="Shelves" EntityType="OSWAM_DataModel.Shelf" />
-          <EntitySet Name="LocalInventories" EntityType="OSWAM_DataModel.LocalInventory" />
-          <AssociationSet Name="FK__LocalInve__Produ__70DDC3D8" Association="OSWAM_DataModel.FK__LocalInve__Produ__70DDC3D8">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="LocalInventory" EntitySet="LocalInventories" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LocalInve__Shelf__6FE99F9F" Association="OSWAM_DataModel.FK__LocalInve__Shelf__6FE99F9F">
-            <End Role="Shelf" EntitySet="Shelves" />
-            <End Role="LocalInventory" EntitySet="LocalInventories" />
-          </AssociationSet>
           <FunctionImport Name="GetPreferenceValue" ReturnType="Collection(Int32)">
           <Parameter Name="PreferenceKey" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllShelves" ReturnType="Collection(OSWAM_DataModel.GetAllShelves_Result)" />
+          <FunctionImport Name="DeleteShelf">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="LocationX" Mode="In" Type="Int32" />
+            <Parameter Name="LocationY" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="LocalInventories" EntityType="OSWAM_DataModel.LocalInventory" />
+          <EntitySet Name="Shelves" EntityType="OSWAM_DataModel.Shelf" />
+          <AssociationSet Name="FK__LocalInve__Produ__08B54D69" Association="OSWAM_DataModel.FK__LocalInve__Produ__08B54D69">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="LocalInventory" EntitySet="LocalInventories" />
+          </AssociationSet>
+          <FunctionImport Name="CreateShelf">
+            <Parameter Name="LocationX" Mode="In" Type="Int32" />
+            <Parameter Name="LocationY" Mode="In" Type="Int32" />
+            <Parameter Name="availableVolume" Mode="In" Type="Decimal" />
+            <Parameter Name="availableWeight" Mode="In" Type="Decimal" />
+            <Parameter Name="CellType" Mode="In" Type="Boolean" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetInventoryProducts_Result">
           <Property Type="String" Name="ID" Nullable="false" MaxLength="10" />
@@ -209,17 +215,13 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="PreferenceKey" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="PreferenceValue" Type="Int32" />
         </EntityType>
-        <EntityType Name="Shelf">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="LocationX" Type="Int32" />
-          <Property Name="LocationY" Type="Int32" />
-          <NavigationProperty Name="LocalInventories" Relationship="OSWAM_DataModel.FK__LocalInve__Shelf__6FE99F9F" FromRole="Shelf" ToRole="LocalInventory" />
-          <Property Name="availableVolume" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="availableWeight" Type="Decimal" Precision="9" Scale="2" />
-        </EntityType>
+        <ComplexType Name="GetAllShelves_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="LocationX" Nullable="true" />
+          <Property Type="Int32" Name="LocationY" Nullable="true" />
+          <Property Type="Decimal" Name="availableVolume" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="availableWeight" Nullable="true" Precision="9" Scale="2" />
+        </ComplexType>
         <EntityType Name="LocalInventory">
           <Key>
             <PropertyRef Name="ShelfID" />
@@ -228,10 +230,21 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="ShelfID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="OSWAM_DataModel.FK__LocalInve__Produ__70DDC3D8" FromRole="LocalInventory" ToRole="Product" />
-          <NavigationProperty Name="Shelf" Relationship="OSWAM_DataModel.FK__LocalInve__Shelf__6FE99F9F" FromRole="LocalInventory" ToRole="Shelf" />
+          <NavigationProperty Name="Product" Relationship="OSWAM_DataModel.FK__LocalInve__Produ__08B54D69" FromRole="LocalInventory" ToRole="Product" />
         </EntityType>
-        <Association Name="FK__LocalInve__Produ__70DDC3D8">
+        <EntityType Name="Shelf">
+          <Key>
+            <PropertyRef Name="LocationX" />
+            <PropertyRef Name="LocationY" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationX" Type="Int32" Nullable="false" />
+          <Property Name="LocationY" Type="Int32" Nullable="false" />
+          <Property Name="availableVolume" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="availableWeight" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="CellType" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__LocalInve__Produ__08B54D69">
           <End Type="OSWAM_DataModel.Product" Role="Product" Multiplicity="1" />
           <End Type="OSWAM_DataModel.LocalInventory" Role="LocalInventory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -243,25 +256,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LocalInve__Shelf__6FE99F9F">
-          <End Type="OSWAM_DataModel.Shelf" Role="Shelf" Multiplicity="1" />
-          <End Type="OSWAM_DataModel.LocalInventory" Role="LocalInventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Shelf">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="LocalInventory">
-              <PropertyRef Name="ShelfID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="GetAllShelves_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="Int32" Name="LocationX" Nullable="true" />
-          <Property Type="Int32" Name="LocationY" Nullable="true" />
-          <Property Type="Decimal" Name="availableVolume" Nullable="true" Precision="9" Scale="2" />
-          <Property Type="Decimal" Name="availableWeight" Nullable="true" Precision="9" Scale="2" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -332,26 +326,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Shelves">
-            <EntityTypeMapping TypeName="OSWAM_DataModel.Shelf">
-              <MappingFragment StoreEntitySet="Shelf">
-                <ScalarProperty Name="availableWeight" ColumnName="availableWeight" />
-                <ScalarProperty Name="availableVolume" ColumnName="availableVolume" />
-                <ScalarProperty Name="LocationY" ColumnName="LocationY" />
-                <ScalarProperty Name="LocationX" ColumnName="LocationX" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LocalInventories">
-            <EntityTypeMapping TypeName="OSWAM_DataModel.LocalInventory">
-              <MappingFragment StoreEntitySet="LocalInventory">
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ShelfID" ColumnName="ShelfID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetPreferenceValue" FunctionName="OSWAM_DataModel.Store.GetPreferenceValue" />
           <FunctionImportMapping FunctionImportName="GetAllShelves" FunctionName="OSWAM_DataModel.Store.GetAllShelves">
             <ResultMapping>
@@ -364,6 +338,29 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteShelf" FunctionName="OSWAM_DataModel.Store.DeleteShelf" />
+          <EntitySetMapping Name="LocalInventories">
+            <EntityTypeMapping TypeName="OSWAM_DataModel.LocalInventory">
+              <MappingFragment StoreEntitySet="LocalInventory">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ShelfID" ColumnName="ShelfID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shelves">
+            <EntityTypeMapping TypeName="OSWAM_DataModel.Shelf">
+              <MappingFragment StoreEntitySet="Shelf">
+                <ScalarProperty Name="CellType" ColumnName="CellType" />
+                <ScalarProperty Name="availableWeight" ColumnName="availableWeight" />
+                <ScalarProperty Name="availableVolume" ColumnName="availableVolume" />
+                <ScalarProperty Name="LocationY" ColumnName="LocationY" />
+                <ScalarProperty Name="LocationX" ColumnName="LocationX" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreateShelf" FunctionName="OSWAM_DataModel.Store.CreateShelf" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
