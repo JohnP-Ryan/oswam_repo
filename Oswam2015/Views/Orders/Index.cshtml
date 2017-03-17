@@ -8,15 +8,7 @@
 
 <div class="row">
     <!--Hiding Panel Nav bar-->
-    <div class="col-lg-8">
-        <div class="container-fluid">
-            <ul class="nav nav-tabs nav-justified nav-divider">
-                <li><asp:Button runat="server" OnClientClick="showPanel('first'); return false;" class="btn btn-primary btn-block">In Progress</asp:Button></li>
-                <li><button type="button" class="btn btn-primary btn-block showWaiting">Waiting</button></li>
-                <li><button type="button" class="btn btn-primary btn-block showFulfilled">Fulfilled</button></li>
-            </ul>
-        </div>
-        <br />
+    <div class="col-lg-7">
         <!--Panel Fulfilled-->
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -26,6 +18,7 @@
                     @MvcHtmlString.Create(
                         orderGrid.GetHtml(
                             tableStyle: "table table-striped table-condensed table-hover",
+                            htmlAttributes: new {id="OrderTable"},
 
                             columns: orderGrid.Columns(
                                 orderGrid.Column("OrderID"),
@@ -39,79 +32,53 @@
         </div>
     </div>      
     <!--Right Hand Details Column (size 4)-->
-    <div class="col-lg-4">
+    <div class="col-lg-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="text-center">Order Details</h4>
             </div>
             <div class="panel-body">
-                <ol class="list-group">
-                    <li class="list-group-item">
-                        <span class="badge">B0000CDLKF</span>
-                        Best CD Ever
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">B00EHZYWGM</span>
-                        AmazonBasics Portable Bluetooth Speaker - Black
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">B00KMF2MZO</span>
-                        Galaxy S5 Screen Protector
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">B01EFKSCP0</span>
-                        PopSockets: Expanding Stand
-                    </li>
-                </ol>
 
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span class="badge">$56.07</span>
-                        Total Price
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">3.14 Pounds</span>
-                        Total Weight
-                    </li>
-                </ul>
+                <table class="table table-striped">
+                    <thead>
+                        <tr></tr>
+                    </thead>
+                    <tbody id="OrderDetailsTable">
+                        <tr><td><h4>Select Order For Details</h4></td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         
     </div>
 </div>
 
+@section Scripts{
 <script type="text/javascript">
-    function ToggleDiv(Flag) {
-        alert("Hello! I am an alert box!!");
-        if (Flag == "first") {
-            alert("clicked first");
-            document.getElementById('dvFirstDiv').style.display = 'block';
-            document.getElementById('dvSecondDiv').style.display = 'none';
-        }
-        else {
-            document.getElementById('dvFirstDiv').style.display = 'none';
-            document.getElementById('dvSecondDiv').style.display = 'block';
-        }
-    }
-</script>
+    $(document).ready(function () {
+        $(function () {
+            var tr = $('#OrderTable').find('tr');
+            tr.bind('click', function (event) {
+                var tds = $(this).find('td');
+                var itemID = tds[0].innerHTML;
 
-<!--
-<script type="text/javascript">
-    $(document).ready(function (){
-        $(".showProgress").click( function () {
-            $("#panelProgress").parent().show();
-            $("#panelWaiting").parent().hide();
-            $("#panelFulfilled").parent().hide();
+                //alert(itemID);
+
+                var url = '/Orders/DetailsPartial';
+
+                $.ajax({
+                    type: 'GET',
+                    //url: '<%: Url.Action("DetailsPartial", "Orders")%>',
+                    url: url,
+                    data: { 'orderID': itemID },
+                    datatype: "html",
+                    success: function (html) {
+                        $("#OrderDetailsTable").html(html);
+                    }
+                });
+                return false;
+            });
         });
-        $(".showWaiting").click( function () {
-            $("#panelProgress").parent().hide();
-            $("#panelWaiting").parent().show();
-            $("#panelFulfilled").parent().hide();
-        });
-        $(".showFulfilled").click( function () {
-            $("#panelProgress").parent().hide();
-            $("#panelWaiting").parent().hide();
-            $("#panelFulfilled").parent().show();
-        });
-    });
-</script> -->
+    })
+</script>
+}

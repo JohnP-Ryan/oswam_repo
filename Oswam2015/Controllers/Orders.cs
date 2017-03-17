@@ -25,5 +25,31 @@ namespace OSWAM.Controllers
             var orderData = dataContext.GetOrderCount();
             return View(orderData.ToList());
         }
+
+        public string DetailsPartial(string orderID)
+        {
+            String html = "";
+
+            var orderTotalPrice = dataContext.GetOrderTotalPrice(orderID).ToList();
+            var orderTotalWeight = dataContext.GetOrderTotalWeight(orderID).ToList();
+            var orderTotalVolumeFt = dataContext.GetOrderTotalVolume(orderID).ToList();
+
+            html += "<tr><td><h6>" + "Total Order Price:" + "</h6></td><td><h6>$" + orderTotalPrice[0].Value + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Total Order Weight:" + "</h6></td><td><h6>" + orderTotalWeight[0].Value + " Pounds</h6></td></tr>";
+            html += "<tr><td><h6>" + "Total Order Volume:" + "</h6></td><td><h6>" + orderTotalVolumeFt[0].Value + " Cubic Feet</h6></td></tr>";
+            html += "<tr style=\"border-top: 3px solid black;\"><td><h4><u>" + "Product Name" + "</u></h4></td><td><h4><u>" + "Product ID" + "</u></h4></td></tr>";
+
+            //html += "</tbody><hr><tbody>";
+
+            var orderProductList = dataContext.GetOrderProducts(orderID).ToList();
+
+            foreach (GetOrderProducts_Result item in orderProductList)
+            {
+                html += "<tr><td><h6>" + item.Name + "</h6></td><td><h6>" + item.ProductID + "</h6></td></tr>";
+            }
+            
+            return html;
+        }
+
     }
 }

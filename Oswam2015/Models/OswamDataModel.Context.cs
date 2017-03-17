@@ -154,5 +154,41 @@ namespace Oswam2015.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInventoryProducts_Result>("GetInventoryProducts", iDParameter, searchNameParameter, weightLowParameter, weightHighParameter, priceLowParameter, priceHighParameter);
         }
+    
+        public virtual ObjectResult<GetOrderProducts_Result> GetOrderProducts(string orderID)
+        {
+            var orderIDParameter = orderID != null ?
+                new ObjectParameter("OrderID", orderID) :
+                new ObjectParameter("OrderID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderProducts_Result>("GetOrderProducts", orderIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> GetOrderTotalPrice(string orderID)
+        {
+            var orderIDParameter = orderID != null ?
+                new ObjectParameter("OrderID", orderID) :
+                new ObjectParameter("OrderID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetOrderTotalPrice", orderIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> GetOrderTotalVolume(string orderID)
+        {
+            var orderIDParameter = orderID != null ?
+                new ObjectParameter("OrderID", orderID) :
+                new ObjectParameter("OrderID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetOrderTotalVolume", orderIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> GetOrderTotalWeight(string orderID)
+        {
+            var orderIDParameter = orderID != null ?
+                new ObjectParameter("OrderID", orderID) :
+                new ObjectParameter("OrderID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetOrderTotalWeight", orderIDParameter);
+        }
     }
 }
