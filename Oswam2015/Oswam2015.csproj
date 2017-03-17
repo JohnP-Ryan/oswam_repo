@@ -199,10 +199,14 @@
     <Compile Include="Controllers\Inventory.cs" />
     <Compile Include="Controllers\Orders.cs" />
     <Compile Include="Controllers\Settings.cs" />
+    <Compile Include="Controllers\SortingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CanvasModel.cs" />
+    <Compile Include="Models\GetAllCells_Result.cs">
+      <DependentUpon>OswamDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetAllPreferences_Result.cs">
       <DependentUpon>OswamDataModel.tt</DependentUpon>
     </Compile>
@@ -331,6 +335,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Sorting\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

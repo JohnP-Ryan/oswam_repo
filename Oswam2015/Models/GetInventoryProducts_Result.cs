@@ -21,5 +21,6 @@ namespace Oswam2015.Models
         public Nullable<decimal> Weight { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<short> Quantity { get; set; }
+        public Nullable<decimal> Volume { get; set; }
     }
 }

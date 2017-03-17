@@ -33,35 +33,6 @@ namespace Oswam2015.Models
         public virtual DbSet<LocalInventory> LocalInventories { get; set; }
         public virtual DbSet<Shelf> Shelves { get; set; }
     
-        public virtual ObjectResult<GetInventoryProducts_Result> GetInventoryProducts(string iD, string searchName, Nullable<int> weightLow, Nullable<int> weightHigh, Nullable<int> priceLow, Nullable<int> priceHigh)
-        {
-            var iDParameter = iD != null ?
-                new ObjectParameter("ID", iD) :
-                new ObjectParameter("ID", typeof(string));
-    
-            var searchNameParameter = searchName != null ?
-                new ObjectParameter("SearchName", searchName) :
-                new ObjectParameter("SearchName", typeof(string));
-    
-            var weightLowParameter = weightLow.HasValue ?
-                new ObjectParameter("WeightLow", weightLow) :
-                new ObjectParameter("WeightLow", typeof(int));
-    
-            var weightHighParameter = weightHigh.HasValue ?
-                new ObjectParameter("WeightHigh", weightHigh) :
-                new ObjectParameter("WeightHigh", typeof(int));
-    
-            var priceLowParameter = priceLow.HasValue ?
-                new ObjectParameter("PriceLow", priceLow) :
-                new ObjectParameter("PriceLow", typeof(int));
-    
-            var priceHighParameter = priceHigh.HasValue ?
-                new ObjectParameter("PriceHigh", priceHigh) :
-                new ObjectParameter("PriceHigh", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInventoryProducts_Result>("GetInventoryProducts", iDParameter, searchNameParameter, weightLowParameter, weightHighParameter, priceLowParameter, priceHighParameter);
-        }
-    
         public virtual ObjectResult<Nullable<double>> orderGenerator(Nullable<int> orderSize)
         {
             var orderSizeParameter = orderSize.HasValue ?
@@ -148,6 +119,40 @@ namespace Oswam2015.Models
                 new ObjectParameter("CellType", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateShelf", locationXParameter, locationYParameter, availableVolumeParameter, availableWeightParameter, cellTypeParameter);
+        }
+    
+        public virtual ObjectResult<GetAllCells_Result> GetAllCells()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCells_Result>("GetAllCells");
+        }
+    
+        public virtual ObjectResult<GetInventoryProducts_Result> GetInventoryProducts(string iD, string searchName, Nullable<int> weightLow, Nullable<int> weightHigh, Nullable<int> priceLow, Nullable<int> priceHigh)
+        {
+            var iDParameter = iD != null ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(string));
+    
+            var searchNameParameter = searchName != null ?
+                new ObjectParameter("SearchName", searchName) :
+                new ObjectParameter("SearchName", typeof(string));
+    
+            var weightLowParameter = weightLow.HasValue ?
+                new ObjectParameter("WeightLow", weightLow) :
+                new ObjectParameter("WeightLow", typeof(int));
+    
+            var weightHighParameter = weightHigh.HasValue ?
+                new ObjectParameter("WeightHigh", weightHigh) :
+                new ObjectParameter("WeightHigh", typeof(int));
+    
+            var priceLowParameter = priceLow.HasValue ?
+                new ObjectParameter("PriceLow", priceLow) :
+                new ObjectParameter("PriceLow", typeof(int));
+    
+            var priceHighParameter = priceHigh.HasValue ?
+                new ObjectParameter("PriceHigh", priceHigh) :
+                new ObjectParameter("PriceHigh", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInventoryProducts_Result>("GetInventoryProducts", iDParameter, searchNameParameter, weightLowParameter, weightHighParameter, priceLowParameter, priceHighParameter);
         }
     }
 }
