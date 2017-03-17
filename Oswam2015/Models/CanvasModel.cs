@@ -37,7 +37,7 @@ namespace Oswam2015.Models
                 gridCells.Add(sublist);
             }
             //collect shelves from database, read into cells that match coordinates (foreach)
-            var shelfData = dataContext.GetAllShelves().ToList();
+            var shelfData = dataContext.GetAllCells().ToList();
             
             foreach(var dbItem in shelfData)
             {
@@ -60,7 +60,7 @@ namespace Oswam2015.Models
 
         public List<List<Cell>> getCellGrid() { return gridCells; }
 
-        //testdisplay function - debug only
+        //testdisplay function - debug only - remove for production
         public void testDisplay()
         {
             foreach (var sublist in gridCells)
