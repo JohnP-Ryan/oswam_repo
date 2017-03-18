@@ -21,7 +21,11 @@
         <p>Place item...</p>
         <button id="shelfButton" type="button" class="btn btn-primary" onclick="placingShelf()">Shelf</button>
         <button id="stationButton" type="button" class="btn btn-primary active" onclick="placingStation()">Packing</button>
-        <br /> <br />
+        <br />
+        <p>Shelves Remaining:</p>
+        <div id="shelfRemainingPrintout"></div>
+        <p>Pack Stations Remanining:</p>
+        <div id="stationRemainingPrintout"></div>
         <hr />
     </div>
     <div>
@@ -82,6 +86,10 @@
 
         var maxShelfNum = @Model.getMaxShelfNum();
         var placedShelfNum = @Model.getPlacedShelfNum();
+        var maxStationNum = @Model.getMaxStationNum();
+        var placedStationNum = @Model.getPlacedStationNum();
+
+        alert("" + maxShelfNum + " " + placedShelfNum + " " + maxStationNum + " " + placedStationNum);
 
         //Sidebar
         function openNav() {
@@ -110,6 +118,8 @@
             else{ //enter place mode
                 document.getElementById("placemodeToggleButton").innerText = "Exit Place Mode";
                 document.getElementById("cellButtonGroup").style.display = 'inline-block';
+                document.getElementById("shelfRemainingPrintout").innerText = "" + (maxShelfNum - placedShelfNum);
+                document.getElementById("stationRemainingPrintout").innerText = "" + (maxStationNum - placedStationNum);
                 placeMode = true;
                 if(deleteMode)
                     deletemodeToggle();
@@ -224,7 +234,7 @@
                             else
                             {
                                 <text>context.fillStyle = "yellow";
-                                context.fillRect(xLocation, yLocation, cellSizePx, cellSizePx);
+                context.fillRect(xLocation, yLocation, cellSizePx, cellSizePx);
                                 </text>
                             }
 
@@ -244,23 +254,30 @@
 
             }
             function handleClick(e) {
-                if(placeMode && placeShelf){
+                if(placeMode && placeShelf && (maxShelfNum > placedShelfNum)){
                     context.fillStyle = "green";
                     context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
                       (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
                       cellSizePx - 2, cellSizePx - 2);
+                    placedShelfNum++;
+                    document.getElementById("shelfRemainingPrintout").innerText = "" + (maxShelfNum - placedShelfNum);
                 }
-                else if(placeMode && !placeShelf){
+                else if(placeMode && !placeShelf && (maxStationNum > placedStationNum)){
                     context.fillStyle = "yellow";
                     context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
                       (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
                       cellSizePx - 2, cellSizePx - 2);
+                    placedStationNum++;
+                    document.getElementById("stationRemainingPrintout").innerText = "" + (maxStationNum - placedStationNum);
                 }
                 else if(deleteMode){
                     context.fillStyle = "white";
                     context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
                       (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
                       cellSizePx - 2, cellSizePx - 2);
+
+
+                    //handler code to return num printouts properly
                 }
             }
         })();

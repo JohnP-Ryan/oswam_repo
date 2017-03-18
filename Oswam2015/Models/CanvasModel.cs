@@ -7,7 +7,7 @@ namespace Oswam2015.Models
 {
     public class CanvasModel
     {
-        int xCellDimension, yCellDimension, maxShelfNum, cellSizeFt;
+        int xCellDimension, yCellDimension, maxShelfNum, maxStationNum, cellSizeFt;
         int placedShelfNum = 0;
         int placedStationNum = 0;
         private OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
@@ -18,6 +18,7 @@ namespace Oswam2015.Models
         {
             //Read preference values from database to configure display
             maxShelfNum = Convert.ToInt32(dataContext.GetPreferenceValue("NumShelves").ToList().FirstOrDefault());
+            maxStationNum = Convert.ToInt32(dataContext.GetPreferenceValue("NumPackingStations").ToList().FirstOrDefault());
             cellSizeFt = Convert.ToInt32(dataContext.GetPreferenceValue("ShelfSideLength").ToList().FirstOrDefault()); 
             xCellDimension = Convert.ToInt32(dataContext.GetPreferenceValue("WarehouseLength").ToList().FirstOrDefault()) / cellSizeFt;
             yCellDimension = Convert.ToInt32(dataContext.GetPreferenceValue("WarehouseWidth").ToList().FirstOrDefault()) / cellSizeFt;
@@ -50,7 +51,7 @@ namespace Oswam2015.Models
                 int cellType = Convert.ToInt32(dbItem.CellType);
 
                 gridCells[shelfXCoord][shelfYCoord].BindToShelf(freeVolume, freeWeight, shelfId, cellType);
-                if(cellType == 0) { placedShelfNum++; }
+                if(cellType == 1) { placedShelfNum++; }
                 else { placedStationNum++; }
             }
 
@@ -62,8 +63,9 @@ namespace Oswam2015.Models
         public int getXCellDimension() { return xCellDimension; }
         public int getYCellDimension() { return yCellDimension; }
         public int getMaxShelfNum() { return maxShelfNum; }
+        public int getMaxStationNum() { return maxStationNum; }
         public int getPlacedShelfNum() { return placedShelfNum; }
-        public int getPlaceStationNum() { return placedStationNum; }
+        public int getPlacedStationNum() { return placedStationNum; }
 
         public List<List<Cell>> getCellGrid() { return gridCells; }
 

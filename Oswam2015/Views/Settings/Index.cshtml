@@ -54,6 +54,8 @@
                         <tbody>
                             <tr><td><button class="btn btn-primary prefTextField" id="pref3But1">Num Shelves</button> 
                                 <input type="text" id="pref3In1" data-id="0" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(0).PreferenceValue" /></td></tr>
+                            <tr><td><button class="btn btn-primary prefTextField" id="pref3But7">Num Packing Stations</button>
+                                 <input type="text" id="pref3In7" data-id="7" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(7).PreferenceValue" /></td></tr>
                             <tr><td><button class="btn btn-primary prefTextField" id="pref3But2">Shelf Height</button> 
                                 <input type="text" id="pref3In2" data-id="1" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(1).PreferenceValue" /> feet</td></tr>
                             <tr><td><button class="btn btn-primary prefTextField" id="pref3But3">Shelf Side Length</button> 
@@ -134,6 +136,9 @@
         };
         document.getElementById('pref3But6').onclick = function () {
             document.getElementById('pref3In6').focus();
+        };
+        document.getElementById('pref3But7').onclick = function () {
+            document.getElementById('pref3In7').focus();
         };
     </script>    
 }
