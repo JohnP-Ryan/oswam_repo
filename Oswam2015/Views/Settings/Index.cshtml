@@ -4,6 +4,7 @@
     ViewBag.Page = "Settings";
 
     int totalWarehouseArea = Model.ElementAt(4).PreferenceValue.Value * Model.ElementAt(5).PreferenceValue.Value;
+    int totalWarehouseVolFt = ((Model.ElementAt(2).PreferenceValue.Value * Model.ElementAt(2).PreferenceValue.Value) * Model.ElementAt(1).PreferenceValue.Value) * Model.ElementAt(0).PreferenceValue.Value;
 }
 
 <!DOCTYPE html>
@@ -79,7 +80,7 @@
                 <div class="panel-body flex-grow">
                     <ul class="list-group">
                         <li class="list-group-item">Total Warehouse Sq Ft: &nbsp; @totalWarehouseArea</li>
-                        <li class="list-group-item">Total Shelf Capacity cu ft: &nbsp; </li>
+                        <li class="list-group-item">Total Shelf Capacity cu ft: &nbsp; @totalWarehouseVolFt</li>
                         <li class="list-group-item">Total Items Stored: &nbsp; </li>
                         <li class="list-group-item">Average Order Completion Time: &nbsp; </li>
                         <li class="list-group-item"></li>
