@@ -9,6 +9,7 @@ namespace Oswam2015.Models
     {
         int xCellDimension, yCellDimension, maxShelfNum, cellSizeFt;
         int placedShelfNum = 0;
+        int placedStationNum = 0;
         private OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
 
         List<List<Cell>> gridCells;
@@ -46,8 +47,11 @@ namespace Oswam2015.Models
                 int freeVolume = Convert.ToInt32(dbItem.availableVolume);
                 int freeWeight = Convert.ToInt32(dbItem.availableWeight);
                 int shelfId = Convert.ToInt32(dbItem.ID);
+                int cellType = Convert.ToInt32(dbItem.CellType);
 
-                gridCells[shelfXCoord][shelfYCoord].BindToShelf(freeVolume, freeWeight, shelfId);
+                gridCells[shelfXCoord][shelfYCoord].BindToShelf(freeVolume, freeWeight, shelfId, cellType);
+                if(cellType == 0) { placedShelfNum++; }
+                else { placedStationNum++; }
             }
 
             //System.Diagnostics.Debug.WriteLine("" + gridCells[3][5].getShelfId());
@@ -57,6 +61,9 @@ namespace Oswam2015.Models
 
         public int getXCellDimension() { return xCellDimension; }
         public int getYCellDimension() { return yCellDimension; }
+        public int getMaxShelfNum() { return maxShelfNum; }
+        public int getPlacedShelfNum() { return placedShelfNum; }
+        public int getPlaceStationNum() { return placedStationNum; }
 
         public List<List<Cell>> getCellGrid() { return gridCells; }
 
@@ -77,26 +84,28 @@ namespace Oswam2015.Models
 
     public class Cell
     {
-        int xLocation, yLocation, availableVolume, availableWeight;
-        int shelfID = -1;
+        int xLocation, yLocation, availableVolume, availableWeight, shelfID, cellType;
 
-        public Cell(int xLoc, int yLoc, int id = -1)
+        public Cell(int xLoc, int yLoc, int id = -1, int type = -1)
         {
             xLocation = xLoc;
             yLocation = yLoc;
             shelfID = id;
+            cellType = type;
         }
 
-        public void BindToShelf(int freeVolume, int freeWeight, int linkedShelfID)
+        public void BindToShelf(int freeVolume, int freeWeight, int linkedShelfID, int linkedCellType)
         {
             availableVolume = freeVolume;
             availableWeight = freeWeight;
             shelfID = linkedShelfID;
+            cellType = linkedCellType;
         }
 
 
         public int getXCoord() { return xLocation; }
         public int getYCoord() { return yLocation; }
         public int getShelfId() { return shelfID; }
+        public int getCellType() { return cellType; }
     }
 }

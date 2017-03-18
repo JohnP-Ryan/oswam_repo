@@ -19,10 +19,11 @@ namespace OSWAM.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
-            Oswam2015.Sorting.Sorter.test();//for demonstration purposes
             
             CanvasModel floorGrid = new CanvasModel();
-            
+
+            //return View(RedirectToAction("Index", "SortingController")); //inject in sorting if-else?
+
             return View(floorGrid);
         }
     }

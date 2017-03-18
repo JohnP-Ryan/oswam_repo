@@ -4,15 +4,143 @@
     ViewBag.Page = "FloorGrid";
 }
 
-<canvas id="canvas"></canvas>
+
+<div class="row" id="main">
+    <div class="col-lg-11">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="col-lg-1" align="right">
+        <button id="configBtn" class="btn btn-primary" style="font-size:20px;cursor:pointer;" onclick="openNav()">&#9776; Config</button>
+    </div>
+</div>
+
+<div id="mySidenav" class="sidenav text-center">
+    <a id="placemodeToggleButton" href="#" onclick="placemodeToggle()">Enter Place Mode</a>
+    <div id="cellButtonGroup" class="btn-group text-center" role="group" aria-label="...">
+        <hr />
+        <p>Place item...</p>
+        <button id="shelfButton" type="button" class="btn btn-primary" onclick="placingShelf()">Shelf</button>
+        <button id="stationButton" type="button" class="btn btn-primary active" onclick="placingStation()">Packing</button>
+        <br /> <br />
+        <hr />
+    </div>
+    <div>
+        <br />
+        <a id="deletemodeToggleButton" href="#" onclick="deletemodeToggle()">Enter Delete Mode</a>
+    </div>
+    <div>
+        <br />
+        <a href="javascript:void(0)" onclick="closeNav()">Exit Config</a>
+    </div>
+</div>
+
+
+@section Styles {
+    <style>
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+            transition: 0.3s
+        }
+        .sidenav a:hover, .offcanvas a:focus{
+            color: #f1f1f1;
+        }
+
+        #main {
+            transition: margin-right .5s;
+            padding: 16px;
+        }
+    </style>
+}
+
 
 
 @section Scripts {
     <script type="text/javascript">
 
         var cellSizePx = 0;
-        var sideMargin = 120;
-        var placeMode = true;
+        var sideMargin = 220;
+        var placeMode = false;
+        var deleteMode = false;
+        var placeShelf = true;
+
+        var maxShelfNum = @Model.getMaxShelfNum();
+        var placedShelfNum = @Model.getPlacedShelfNum();
+
+        //Sidebar
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "220px";
+            document.getElementById("main").style.marginRight = "220px";
+            document.getElementById("configBtn").style.display = 'none';
+            document.getElementById("cellButtonGroup").style.display = 'none';
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginRight= "0";
+            document.getElementById("configBtn").style.display = 'inline-block';
+            if(placeMode)
+                placemodeToggle();
+            if(deleteMode)
+                deletemodeToggle();
+        }
+
+        function placemodeToggle(){
+            if(placeMode){ //exit place mode
+                document.getElementById("placemodeToggleButton").innerText = "Enter Place Mode";
+                document.getElementById("cellButtonGroup").style.display = 'none';
+                placeMode = false;
+            }
+            else{ //enter place mode
+                document.getElementById("placemodeToggleButton").innerText = "Exit Place Mode";
+                document.getElementById("cellButtonGroup").style.display = 'inline-block';
+                placeMode = true;
+                if(deleteMode)
+                    deletemodeToggle();
+            }
+        }
+
+        function deletemodeToggle(){
+            if(deleteMode){ //exit delete mode
+                document.getElementById("deletemodeToggleButton").innerText = "Enter Delete Mode";
+                deleteMode = false;
+            }
+            else{ //enter delete mode
+                document.getElementById("deletemodeToggleButton").innerText = "Exit Delete Mode";
+                deleteMode = true;
+                if(placeMode)
+                    placemodeToggle();
+            }
+        }
+
+        function placingShelf(){
+            $('#shelfButton').removeClass('active');
+            $('#stationButton').addClass('active');
+            document.activeElement.blur()
+            placeShelf = true;
+        }
+        function placingStation(){
+            $('#shelfButton').addClass('active');
+            $('#stationButton').removeClass('active');
+            document.activeElement.blur()
+            placeShelf = false;
+        }
 
 
         //Canvas
@@ -31,11 +159,20 @@
                 if((window.innerWidth - sideMargin) / @Model.getXCellDimension() >= 60){
                     cellSizePx = 60;
                 }
+                else if((window.innerWidth - sideMargin) / @Model.getXCellDimension() >= 55){
+                    cellSizePx = 55;
+                }
                 else if((window.innerWidth - sideMargin) / @Model.getXCellDimension() >= 50){
                     cellSizePx = 50;
                 }
+                else if((window.innerWidth - sideMargin) / @Model.getXCellDimension() >= 45){
+                    cellSizePx = 45;
+                }
                 else if((window.innerWidth - sideMargin) / @Model.getXCellDimension() >= 40){
                     cellSizePx = 40;
+                }
+                else if((window.innerWidth - sideMargin) / @Model.getXCellDimension() >= 35){
+                    cellSizePx = 35;
                 }
                 else if((window.innerWidth - sideMargin) / @Model.getXCellDimension() >= 30){
                     cellSizePx = 30;
@@ -77,31 +214,54 @@
                 var yLocation = @row * cellSizePx;</text>
                         if (Model.getCellGrid()[column][row].getShelfId() != -1)
                         {
-                            <text>context.fillStyle = "green";
-                            context.fillRect(xLocation, yLocation, cellSizePx, cellSizePx);
-                            </text>
+
+                            if(Model.getCellGrid()[column][row].getCellType() == 1)
+                            {
+                                <text>context.fillStyle = "green";
+                context.fillRect(xLocation, yLocation, cellSizePx, cellSizePx);
+                </text>
+                            }
+                            else
+                            {
+                                <text>context.fillStyle = "yellow";
+                                context.fillRect(xLocation, yLocation, cellSizePx, cellSizePx);
+                                </text>
+                            }
 
                         }
                         else
                         {
                             <text>context.fillStyle = "white";
-                            context.rect(xLocation, yLocation, cellSizePx, cellSizePx);
-                            </text>
+                context.rect(xLocation, yLocation, cellSizePx, cellSizePx);
+                </text>
                         }
                         <text>
-                        context.fill();
-                        context.stroke();
-                        </text>
+                context.fill();
+                context.stroke();
+                </text>
                     }
                 }
 
             }
             function handleClick(e) {
-                context.fillStyle = "black";
-
-                context.fillRect(Math.floor(e.offsetX / cellSizePx) * cellSizePx,
-                  Math.floor(e.offsetY / cellSizePx) * cellSizePx,
-                  cellSizePx, cellSizePx);
+                if(placeMode && placeShelf){
+                    context.fillStyle = "green";
+                    context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
+                      (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
+                      cellSizePx - 2, cellSizePx - 2);
+                }
+                else if(placeMode && !placeShelf){
+                    context.fillStyle = "yellow";
+                    context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
+                      (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
+                      cellSizePx - 2, cellSizePx - 2);
+                }
+                else if(deleteMode){
+                    context.fillStyle = "white";
+                    context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
+                      (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
+                      cellSizePx - 2, cellSizePx - 2);
+                }
             }
         })();
     </script>

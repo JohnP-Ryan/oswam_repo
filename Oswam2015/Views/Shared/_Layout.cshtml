@@ -16,6 +16,8 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/content/Site.min.css" asp-append-version="true" />
     </environment>
+
+    @RenderSection("styles", required: false)
 </head>
 <body>
     <ul class="nav nav-tabs nav-justified">

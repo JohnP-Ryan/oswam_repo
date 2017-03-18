@@ -12,6 +12,9 @@ namespace Oswam2015.Controllers
         // GET: Sorting
         public ActionResult Index()
         {
+
+            Sorter.test();
+
             return View();
         }
     }
