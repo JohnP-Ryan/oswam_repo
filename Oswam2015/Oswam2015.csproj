@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Orders.cs" />
     <Compile Include="Controllers\Settings.cs" />
     <Compile Include="Controllers\SortingController.cs" />
+    <Compile Include="Controllers\Utility.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -298,6 +299,7 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\OSWAM - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\OSWAM.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -336,6 +338,9 @@
     <Content Include="Views\Inventory\ProductDetailsPartial.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Utility\About.cshtml" />
+    <Content Include="Views\Utility\Terms.cshtml" />
+    <Content Include="Views\Utility\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
