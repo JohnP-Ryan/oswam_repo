@@ -23,6 +23,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           </Key>
           <Property Name="OrderID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProductID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="OrderStatus" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Preference">
           <Key>
@@ -123,7 +124,8 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <EntitySet Name="Order" EntityType="Self.Order" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Order].[OrderID] AS [OrderID], 
-    [Order].[ProductID] AS [ProductID]
+    [Order].[ProductID] AS [ProductID], 
+    [Order].[OrderStatus] AS [OrderStatus]
     FROM [dbo].[Order] AS [Order]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__LocalInve__Produ__08B54D69" Association="Self.FK__LocalInve__Produ__08B54D69">
@@ -157,6 +159,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           </Key>
           <Property Name="OrderID" Type="Guid" Nullable="false" />
           <Property Name="ProductID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="OrderStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="OSWAM_DataEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -206,13 +209,13 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Parameter Name="OrderID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetOrderTotalPrice" ReturnType="Collection(Decimal)">
-            <Parameter Name="OrderID" Mode="In" Type="String" />
+          <Parameter Name="OrderID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetOrderTotalVolume" ReturnType="Collection(Decimal)">
-            <Parameter Name="OrderID" Mode="In" Type="String" />
+          <Parameter Name="OrderID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetOrderTotalWeight" ReturnType="Collection(Decimal)">
-            <Parameter Name="OrderID" Mode="In" Type="String" />
+          <Parameter Name="OrderID" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetOrderCount_Result">
@@ -320,6 +323,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="OSWAM_DataModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
