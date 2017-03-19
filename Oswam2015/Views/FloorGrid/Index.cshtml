@@ -89,7 +89,7 @@
         var maxStationNum = @Model.getMaxStationNum();
         var placedStationNum = @Model.getPlacedStationNum();
 
-        alert("" + maxShelfNum + " " + placedShelfNum + " " + maxStationNum + " " + placedStationNum);
+        //alert("" + maxShelfNum + " " + placedShelfNum + " " + maxStationNum + " " + placedStationNum);
 
         //Sidebar animations
         function openNav() {
@@ -254,31 +254,45 @@
 
             }
             function handleClick(e) {
+                var url = '/FloorGrid/editCell';
+                var coordLocX = Math.floor(e.offsetX / cellSizePx);
+                var coordLocY = Math.floor(e.offsetY / cellSizePx);
+                var pxLocX = (Math.floor(e.offsetX / cellSizePx) * cellSizePx);
+                var pxLocY = (Math.floor(e.offsetY / cellSizePx) * cellSizePx);
+                var placedCellType = -1;
+
+
                 if(placeMode && placeShelf && (maxShelfNum > placedShelfNum)){
                     context.fillStyle = "green";
-                    context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
-                      (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
-                      cellSizePx - 2, cellSizePx - 2);
+                    context.fillRect(pxLocX + 1, pxLocY + 1, cellSizePx - 2, cellSizePx - 2);
                     placedShelfNum++;
                     document.getElementById("shelfRemainingPrintout").innerText = "" + (maxShelfNum - placedShelfNum);
+                    placedCellType = 1;
                 }
                 else if(placeMode && !placeShelf && (maxStationNum > placedStationNum)){
                     context.fillStyle = "yellow";
-                    context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
-                      (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
-                      cellSizePx - 2, cellSizePx - 2);
+                    context.fillRect(pxLocX + 1, pxLocY + 1, cellSizePx - 2, cellSizePx - 2);
                     placedStationNum++;
                     document.getElementById("stationRemainingPrintout").innerText = "" + (maxStationNum - placedStationNum);
+                    placedCellType = 0;
                 }
                 else if(deleteMode){
                     context.fillStyle = "white";
-                    context.fillRect((Math.floor(e.offsetX / cellSizePx) * cellSizePx) + 1,
-                      (Math.floor(e.offsetY / cellSizePx) * cellSizePx) + 1,
-                      cellSizePx - 2, cellSizePx - 2);
+                    context.fillRect(pxLocX + 1, pxLocY + 1, cellSizePx - 2, cellSizePx - 2);
 
 
                     //handler code to return num printouts properly
                 }
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {'LocX':coordLocX, 'LocY': coordLocY, 'CellType':placedCellType},
+                    success: function(){
+                        //alert("Returned");
+                    }
+                });
+                
             }
         })();
     </script>
