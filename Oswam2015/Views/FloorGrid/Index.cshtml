@@ -213,8 +213,7 @@
 
             function drawCells() {
                 context.beginPath();
-                context.lineWidth = 2;
-                context.strokeStyle = 'black';
+                context.fillRect(0,0, canvas.width, canvas.height);
 
                 @for(var row = 0; row < Model.getYCellDimension(); row++)
                 {
@@ -228,13 +227,13 @@
                             if(Model.getCellGrid()[column][row].getCellType() == 1)
                             {
                                 <text>context.fillStyle = "green";
-                context.fillRect(xLocation, yLocation, cellSizePx, cellSizePx);
+                context.fillRect((xLocation + 1), (yLocation + 1), (cellSizePx -2), (cellSizePx - 2));
                 </text>
                             }
                             else
                             {
                                 <text>context.fillStyle = "yellow";
-                context.fillRect(xLocation, yLocation, cellSizePx, cellSizePx);
+                context.fillRect((xLocation + 1), (yLocation + 1), (cellSizePx - 2), (cellSizePx - 2));
                                 </text>
                             }
 
@@ -242,13 +241,9 @@
                         else
                         {
                             <text>context.fillStyle = "white";
-                context.rect(xLocation, yLocation, cellSizePx, cellSizePx);
+                context.fillRect((xLocation + 1), (yLocation + 1), (cellSizePx - 2), (cellSizePx - 2));
                 </text>
                         }
-                        <text>
-                context.fill();
-                context.stroke();
-                </text>
                     }
                 }
 
