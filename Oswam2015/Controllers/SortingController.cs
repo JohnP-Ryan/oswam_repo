@@ -16,10 +16,27 @@ namespace Oswam2015.Controllers
         // GET: Sorting
         public ActionResult Index()
         {
+            int algorithmIndex = Convert.ToInt32(dataContext.GetPreferenceValue("SelectedSortingAlg").ToList().FirstOrDefault());
 
-            test();
 
-            return View();
+            LoadInventory();
+
+            //convert saved preference to sorting method
+            switch(algorithmIndex)
+            {
+                case 0:
+                    ShelfAlphabetically();
+                    break;
+                case 1:
+                    ShelfVolume();
+                    break;
+                default:
+                    return RedirectToAction("Index","Settings");
+            }
+
+            PrintWarehouse();
+
+            return View(); // change to redirect to floor grid after sorting
         }
 
         // Add 50 random guys into the inventory list 
@@ -255,14 +272,6 @@ namespace Oswam2015.Controllers
                 if (i < 10)
                 { System.Diagnostics.Debug.WriteLine(i + " " + item.ItemName); i++; }
             }
-        }
-
-        public static void test()
-        {
-            LoadInventory();
-            ShelfAlphabetically();
-            //ShelfVolume();
-            PrintWarehouse();
         }
     }
 
