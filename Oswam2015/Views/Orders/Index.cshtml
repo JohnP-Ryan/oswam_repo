@@ -16,6 +16,7 @@
             </div>
             <div id="panelFulfilled">
                 <div class="panel-body">
+                    <button id="simBtn" class="btn btn-primary" style="font-size:20px;cursor:pointer;" onclick="toggleSimRunner()">&#9658; Run Simulation</button>
                     @MvcHtmlString.Create(
                         orderGrid.GetHtml(
                             tableStyle: "table table-striped table-condensed table-hover",
@@ -23,7 +24,8 @@
 
                             columns: orderGrid.Columns(
                                 orderGrid.Column("OrderID"),
-                                orderGrid.Column("Products")
+                                orderGrid.Column("Products"),
+                                orderGrid.Column("OrderStatus")
                             )
 
                             ).ToHtmlString()
@@ -56,6 +58,24 @@
 
 @section Scripts{
 <script type="text/javascript">
+    var simRunning = false;
+
+    function toggleSimRunner() {
+        if (simRunning) {
+            document.getElementById("simBtn").innerHTML = "&#9658; Run Simulation";
+            simRunning = false;
+
+
+            //ajax to sim runner stop function
+        }
+        else {
+            document.getElementById("simBtn").innerHTML = "&#8214; Pause Simulation";
+            simRunning = true;
+
+            //ajax to sim runner start function
+        }
+    }
+
     $(document).ready(function () {
         $(function () {
             var tr = $('#OrderTable').find('tr');

@@ -167,7 +167,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <FunctionImport Name="orderGenerator" ReturnType="Collection(Double)">
           <Parameter Name="orderSize" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
           <FunctionImport Name="SetPreferenceValue">
             <Parameter Name="PreferenceID" Mode="In" Type="Int32" />
             <Parameter Name="NewPreferenceValue" Mode="In" Type="Int32" />
@@ -217,11 +216,8 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <FunctionImport Name="GetOrderTotalWeight" ReturnType="Collection(Decimal)">
           <Parameter Name="OrderID" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
           </EntityContainer>
-        <ComplexType Name="GetOrderCount_Result">
-          <Property Type="Guid" Name="OrderID" Nullable="false" />
-          <Property Type="Int32" Name="Products" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="GetAllPreferences_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="PreferenceKey" Nullable="false" MaxLength="40" />
@@ -299,6 +295,11 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Type="String" Name="Name" Nullable="true" MaxLength="476" />
           <Property Type="String" Name="ProductID" Nullable="false" MaxLength="10" />
         </ComplexType>
+        <ComplexType Name="GetOrderCount_Result">
+          <Property Type="Guid" Name="OrderID" Nullable="false" />
+          <Property Type="Int32" Name="Products" Nullable="true" />
+          <Property Type="String" Name="OrderStatus" Nullable="true" MaxLength="15" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -330,14 +331,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="orderGenerator" FunctionName="OSWAM_DataModel.Store.orderGenerator" />
-          <FunctionImportMapping FunctionImportName="GetOrderCount" FunctionName="OSWAM_DataModel.Store.GetOrderCount">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetOrderCount_Result">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Products" ColumnName="Products" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SetPreferenceValue" FunctionName="OSWAM_DataModel.Store.SetPreferenceValue" />
           <FunctionImportMapping FunctionImportName="GetAllPreferences" FunctionName="OSWAM_DataModel.Store.GetAllPreferences">
             <ResultMapping>
@@ -419,6 +412,15 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <FunctionImportMapping FunctionImportName="GetOrderTotalPrice" FunctionName="OSWAM_DataModel.Store.GetOrderTotalPrice" />
           <FunctionImportMapping FunctionImportName="GetOrderTotalVolume" FunctionName="OSWAM_DataModel.Store.GetOrderTotalVolume" />
           <FunctionImportMapping FunctionImportName="GetOrderTotalWeight" FunctionName="OSWAM_DataModel.Store.GetOrderTotalWeight" />
+          <FunctionImportMapping FunctionImportName="GetOrderCount" FunctionName="OSWAM_DataModel.Store.GetOrderCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetOrderCount_Result">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Products" ColumnName="Products" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

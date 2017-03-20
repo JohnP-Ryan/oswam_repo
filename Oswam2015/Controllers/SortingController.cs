@@ -9,34 +9,18 @@ namespace Oswam2015.Controllers
 {
     public class SortingController : Controller
     {
+        public static OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
+        public static List<Product> Inventory = new List<Product>();
+        public static List<LocalShelf> Warehouse = new List<LocalShelf>();
+
         // GET: Sorting
         public ActionResult Index()
         {
 
-            Sorter.test();
+            test();
 
             return View();
         }
-    }
-
-    public class LocalShelf
-    {
-        public int ID { get; set; }
-        public int locationX { get; set; }
-        public int locationY { get; set; }
-        public int maxWeight = 200;
-        public int maxVolume = 200;
-        public decimal? currentWeight { get; set; }
-        public decimal? currentVolume { get; set; }
-        public List<Product> itemList { get; set; }
-    }
-
-    public class Sorter
-    {
-        public static OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
-
-        public static List<Product> Inventory = new List<Product>();
-        public static List<LocalShelf> Warehouse = new List<LocalShelf>();
 
         // Add 50 random guys into the inventory list 
         /*public static void LoadItems()
@@ -280,15 +264,17 @@ namespace Oswam2015.Controllers
             //ShelfVolume();
             PrintWarehouse();
         }
-
-        static void Main(string[] args)
-        {
-            LoadInventory();
-            ShelfAlphabetically();
-            //ShelfVolume();
-            PrintWarehouse();
-        }
-
-        /**/
     }
+
+    public class LocalShelf
+    {
+        public int ID { get; set; }
+        public int locationX { get; set; }
+        public int locationY { get; set; }
+        public int maxWeight = 200;
+        public int maxVolume = 200;
+        public decimal? currentWeight { get; set; }
+        public decimal? currentVolume { get; set; }
+        public List<Product> itemList { get; set; }
+    } 
 }

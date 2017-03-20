@@ -42,11 +42,6 @@ namespace Oswam2015.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("orderGenerator", orderSizeParameter);
         }
     
-        public virtual ObjectResult<GetOrderCount_Result> GetOrderCount()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
-        }
-    
         public virtual int SetPreferenceValue(Nullable<int> preferenceID, Nullable<int> newPreferenceValue)
         {
             var preferenceIDParameter = preferenceID.HasValue ?
@@ -189,6 +184,11 @@ namespace Oswam2015.Models
                 new ObjectParameter("OrderID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetOrderTotalWeight", orderIDParameter);
+        }
+    
+        public virtual ObjectResult<GetOrderCount_Result> GetOrderCount()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
         }
     }
 }

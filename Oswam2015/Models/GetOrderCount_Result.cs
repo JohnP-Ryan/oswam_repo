@@ -15,5 +15,6 @@ namespace Oswam2015.Models
     {
         public System.Guid OrderID { get; set; }
         public Nullable<int> Products { get; set; }
+        public string OrderStatus { get; set; }
     }
 }

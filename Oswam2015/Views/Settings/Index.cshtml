@@ -82,6 +82,15 @@
                         <li class="list-group-item">Total Warehouse Sq Ft: &nbsp; @totalWarehouseArea</li>
                         <li class="list-group-item">Total Shelf Capacity cu ft: &nbsp; @totalWarehouseVolFt</li>
                         <li class="list-group-item">Total Items Stored: &nbsp; </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label for="sel1">Item Sorting Style</label>
+                                <select onchange="sortingSelectChange()" class="form-control" id="sel1">
+                                    <option>Alphabetically</option>
+                                    <option>By Volume</option>
+                                </select>
+                            </div>
+                        </li>
                         <li class="list-group-item">Average Order Completion Time: &nbsp; </li>
                         <li class="list-group-item"></li>
                         <li class="list-group-item"></li>
@@ -99,6 +108,20 @@
                 savePreference(this);
             }
         });
+
+        function sortingSelectChange() {
+            var selectionFormObj = document.getElementById("sel1");
+            alert("" + selectionFormObj.options[selectionFormObj.selectedIndex].value);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Settings/SetPreference',
+                data: {
+                    'preferenceID': 8,
+                    'newPreferenceValue': selectionFormObj.selectedIndex
+                }
+            });
+        }
 
         function savePreference(textField) {
             var preferenceID = $(textField).attr("data-id");
