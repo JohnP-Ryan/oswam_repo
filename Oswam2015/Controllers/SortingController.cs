@@ -18,6 +18,7 @@ namespace Oswam2015.Controllers
         {
             int algorithmIndex = Convert.ToInt32(dataContext.GetPreferenceValue("SelectedSortingAlg").ToList().FirstOrDefault());
 
+            System.Diagnostics.Debug.WriteLine("Sorting Called");
 
             LoadInventory();
 

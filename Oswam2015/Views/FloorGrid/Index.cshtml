@@ -30,6 +30,10 @@
     </div>
     <div>
         <br />
+        <a id="sortButton" href="#" onclick="executeSort()">Distribute Items to Shelves</a>
+    </div>
+    <div>
+        <br />
         <a id="deletemodeToggleButton" href="#" onclick="deletemodeToggle()">Enter Delete Mode</a>
     </div>
     <div>
@@ -126,6 +130,25 @@
                     deletemodeToggle();
             }
         }
+
+        function executeSort(){
+            //possibly display confirmation dialog before sending to sort
+            //may need loading indicator
+
+            var url = '/Sorting/Index';
+
+            closeNav();
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                //data: {'',},
+                success: function(){
+                    alert("Returned from sorting");
+                }
+            });
+        }
+
         function deletemodeToggle(){
             if(deleteMode){ //exit delete mode
                 document.getElementById("deletemodeToggleButton").innerText = "Enter Delete Mode";

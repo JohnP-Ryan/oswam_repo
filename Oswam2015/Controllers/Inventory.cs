@@ -63,6 +63,7 @@ namespace OSWAM.Controllers
             html += "<tr><td><h6>" + "Width" + "</h6></td><td><h6>" + detailList[0].DimWidth + "</h6></td></tr>";
             html += "<tr><td><h6>" + "Height" + "</h6></td><td><h6>" + detailList[0].DimHeight + "</h6></td></tr>";
             html += "<tr><td><h6>" + "Price" + "</h6></td><td><h6>" + detailList[0].Price + "</h6></td></tr>";
+            html += "<tr><td><h6>" + "Quantity" + "</h6></td><td><h6>" + detailList[0].Quantity + "</h6></td></tr>";
 
             return html;
         }

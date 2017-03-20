@@ -25,8 +25,6 @@ namespace OSWAM.Controllers
             
             CanvasModel floorGrid = new CanvasModel();
 
-            //return View(RedirectToAction("Index", "SortingController")); //inject in sorting if-else?
-
             return View(floorGrid);
         }
 
@@ -34,19 +32,20 @@ namespace OSWAM.Controllers
         {
             if (CellType == 0)
             {
-                System.Diagnostics.Debug.WriteLine("Cell 0");
+                //System.Diagnostics.Debug.WriteLine("Cell 0");
                 dataContext.CreateShelf(locX, locY, null, null, false);
             }
             else if (CellType == 1)
             {
-                System.Diagnostics.Debug.WriteLine("Cell 1");
+                //System.Diagnostics.Debug.WriteLine("Cell 1");
                 dataContext.CreateShelf(locX, locY, null, null, true);
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("Delete");
+                //System.Diagnostics.Debug.WriteLine("Delete");
                 dataContext.DeleteShelf(null, locX, locY);
             }
         }
+
     }
 }
