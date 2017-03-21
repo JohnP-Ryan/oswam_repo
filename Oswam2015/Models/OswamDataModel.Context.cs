@@ -190,5 +190,10 @@ namespace Oswam2015.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
         }
+    
+        public virtual int DeleteAllCells()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAllCells");
+        }
     }
 }

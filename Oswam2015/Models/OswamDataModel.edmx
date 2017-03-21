@@ -78,6 +78,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Parameter Name="availableWeight" Type="decimal" Mode="In" />
           <Parameter Name="CellType" Type="bit" Mode="In" />
         </Function>
+        <Function Name="DeleteAllCells" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="DeleteShelf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="LocationX" Type="int" Mode="In" />
@@ -217,6 +218,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Parameter Name="OrderID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
+          <FunctionImport Name="DeleteAllCells" />
           </EntityContainer>
         <ComplexType Name="GetAllPreferences_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -421,6 +423,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteAllCells" FunctionName="OSWAM_DataModel.Store.DeleteAllCells" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
