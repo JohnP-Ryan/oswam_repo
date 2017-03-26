@@ -7,9 +7,7 @@ namespace Oswam2015.Models
 {
     public class CanvasModel
     {
-        int xCellDimension, yCellDimension, maxShelfNum, maxStationNum, cellSizeFt;
-        int placedShelfNum = 0;
-        int placedStationNum = 0;
+        int xCellDimension, yCellDimension, maxShelfNum, maxStationNum, cellSizeFt, placedShelfNum, placedStationNum;
         private OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
 
         List<List<Cell>> gridCells;
@@ -19,6 +17,8 @@ namespace Oswam2015.Models
             //Read preference values from database to configure display
             maxShelfNum = Convert.ToInt32(dataContext.GetPreferenceValue("NumShelves").ToList().FirstOrDefault());
             maxStationNum = Convert.ToInt32(dataContext.GetPreferenceValue("NumPackingStations").ToList().FirstOrDefault());
+            placedShelfNum = Convert.ToInt32(dataContext.GetPreferenceValue("NumPlacedShelves").ToList().FirstOrDefault());
+            placedStationNum = Convert.ToInt32(dataContext.GetPreferenceValue("NumPlacedStations").ToList().FirstOrDefault());
             cellSizeFt = Convert.ToInt32(dataContext.GetPreferenceValue("ShelfSideLength").ToList().FirstOrDefault()); 
             xCellDimension = Convert.ToInt32(dataContext.GetPreferenceValue("WarehouseLength").ToList().FirstOrDefault()) / cellSizeFt;
             yCellDimension = Convert.ToInt32(dataContext.GetPreferenceValue("WarehouseWidth").ToList().FirstOrDefault()) / cellSizeFt;
@@ -45,14 +45,10 @@ namespace Oswam2015.Models
             {
                 int shelfXCoord = Convert.ToInt32(dbItem.LocationX);
                 int shelfYCoord = Convert.ToInt32(dbItem.LocationY);
-                int freeVolume = Convert.ToInt32(dbItem.availableVolume);
-                int freeWeight = Convert.ToInt32(dbItem.availableWeight);
                 int shelfId = Convert.ToInt32(dbItem.ID);
                 int cellType = Convert.ToInt32(dbItem.CellType);
 
-                gridCells[shelfXCoord][shelfYCoord].BindToShelf(freeVolume, freeWeight, shelfId, cellType);
-                if(cellType == 1) { placedShelfNum++; }
-                else { placedStationNum++; }
+                gridCells[shelfXCoord][shelfYCoord].BindToShelf(shelfId, cellType);
             }
 
             //System.Diagnostics.Debug.WriteLine("" + gridCells[3][5].getShelfId());
@@ -69,7 +65,7 @@ namespace Oswam2015.Models
 
         public List<List<Cell>> getCellGrid() { return gridCells; }
 
-        //testdisplay function - debug only - remove for production
+        //testdisplay function - debug only - remove for final production
         public void testDisplay()
         {
             foreach (var sublist in gridCells)
@@ -86,7 +82,7 @@ namespace Oswam2015.Models
 
     public class Cell
     {
-        int xLocation, yLocation, availableVolume, availableWeight, shelfID, cellType;
+        int xLocation, yLocation, shelfID, cellType;
 
         public Cell(int xLoc, int yLoc, int id = -1, int type = -1)
         {
@@ -96,10 +92,8 @@ namespace Oswam2015.Models
             cellType = type;
         }
 
-        public void BindToShelf(int freeVolume, int freeWeight, int linkedShelfID, int linkedCellType)
+        public void BindToShelf(int linkedShelfID, int linkedCellType)
         {
-            availableVolume = freeVolume;
-            availableWeight = freeWeight;
             shelfID = linkedShelfID;
             cellType = linkedCellType;
         }

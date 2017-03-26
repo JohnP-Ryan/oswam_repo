@@ -10,7 +10,7 @@ namespace Oswam2015.Controllers
     public class SortingController : Controller
     {
         public static OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
-        public static List<Product> Inventory = new List<Product>();
+        public static List<GetInventoryProducts_Result> Inventory = new List<GetInventoryProducts_Result>();
         public static List<LocalShelf> Warehouse = new List<LocalShelf>();
 
         // GET: Sorting
@@ -37,7 +37,7 @@ namespace Oswam2015.Controllers
 
             PrintWarehouse();
 
-            return View(); // change to redirect to floor grid after sorting
+            return View(); // change to redirect to floor grid after sorting when debugged
         }
 
         // Add 50 random guys into the inventory list 
@@ -62,10 +62,11 @@ namespace Oswam2015.Controllers
         //add the actual inventory
         public static void LoadInventory()
         {
-            System.Diagnostics.Debug.WriteLine("help");
+            System.Diagnostics.Debug.WriteLine("Loading From Database");
             var productList = dataContext.GetInventoryProducts(null, null, 0, 0, 0, 0);
-            var list = productList.ToList();
-            foreach (var element in list)
+            Inventory  = productList.ToList();
+
+            /*foreach (var element in list)
             {
                 Product next = new Product();
                 next.ID = element.ID;
@@ -75,14 +76,15 @@ namespace Oswam2015.Controllers
                 next.Quantity = element.Quantity;
                 //System.Diagnostics.Debug.WriteLine(next.ID + " " + next.Name + " " + next.Weight);
                 Inventory.Add(next);
-            }
+            }*/
 
         }
 
         static void SortAlphabetically()
         {
+            System.Diagnostics.Debug.WriteLine("Sorting Alphabetically");
             bool swap;
-            Product temp; //change this too
+            GetInventoryProducts_Result temp;
 
             do
             {
@@ -120,7 +122,7 @@ namespace Oswam2015.Controllers
 
             LocalShelf shelf = new LocalShelf();
             shelf.ID = shelfID;
-            shelf.itemList = new List<Product>();
+            shelf.itemList = new List<GetInventoryProducts_Result>();
 
             //while there are items in inventory
             do
@@ -154,7 +156,7 @@ namespace Oswam2015.Controllers
                         shelfID++;
                         shelf = new LocalShelf();
                         shelf.ID = shelfID;
-                        shelf.itemList = new List<Product>();
+                        shelf.itemList = new List<GetInventoryProducts_Result>();
                     }
                 }
                 else
@@ -168,8 +170,9 @@ namespace Oswam2015.Controllers
 
         static void SortVolume() //smallest volume and up
         {
+            System.Diagnostics.Debug.WriteLine("Sorting Volume");
             bool swap;
-            Product temp; //change this too
+            GetInventoryProducts_Result temp; //change this too
 
             do
             {
@@ -207,7 +210,7 @@ namespace Oswam2015.Controllers
 
             LocalShelf shelf = new LocalShelf();
             shelf.ID = shelfID;
-            shelf.itemList = new List<Product>();
+            shelf.itemList = new List<GetInventoryProducts_Result>();
 
             //while there are items in inventory
             do
@@ -241,7 +244,7 @@ namespace Oswam2015.Controllers
                         shelfID++;
                         shelf = new LocalShelf();
                         shelf.ID = shelfID;
-                        shelf.itemList = new List<Product>();
+                        shelf.itemList = new List<GetInventoryProducts_Result>();
                     }
                 }
                 else
@@ -258,7 +261,7 @@ namespace Oswam2015.Controllers
             foreach (LocalShelf shelf in Warehouse)
             {
                 System.Diagnostics.Debug.WriteLine("-------------" + shelf.ID);
-                foreach (Product item in shelf.itemList)
+                foreach (GetInventoryProducts_Result item in shelf.itemList)
                 {
                     System.Diagnostics.Debug.WriteLine(item.ItemName + " - " + item.Quantity);
                 }
@@ -268,7 +271,7 @@ namespace Oswam2015.Controllers
         public static void PrintInventory()
         {
             int i = 0;
-            foreach (Product item in Inventory)
+            foreach (GetInventoryProducts_Result item in Inventory)
             {
                 if (i < 10)
                 { System.Diagnostics.Debug.WriteLine(i + " " + item.ItemName); i++; }
@@ -285,6 +288,6 @@ namespace Oswam2015.Controllers
         public int maxVolume = 200;
         public decimal? currentWeight { get; set; }
         public decimal? currentVolume { get; set; }
-        public List<Product> itemList { get; set; }
+        public List<GetInventoryProducts_Result> itemList { get; set; }
     } 
 }
