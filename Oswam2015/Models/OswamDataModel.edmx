@@ -46,6 +46,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="Price" Type="smallmoney" />
           <Property Name="Quantity" Type="smallint" />
           <Property Name="Volume" Type="decimal" Precision="29" Scale="6" StoreGeneratedPattern="Computed" />
+          <Property Name="NumPlaced" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Shelf">
           <Key>
@@ -152,6 +153,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="Quantity" Type="Int16" />
           <NavigationProperty Name="LocalInventories" Relationship="OSWAM_DataModel.FK__LocalInve__Produ__08B54D69" FromRole="Product" ToRole="LocalInventory" />
           <Property Name="Volume" Type="Decimal" Precision="29" Scale="6" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="NumPlaced" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -311,6 +313,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="OSWAM_DataModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="NumPlaced" ColumnName="NumPlaced" />
                 <ScalarProperty Name="Volume" ColumnName="Volume" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
