@@ -20,5 +20,8 @@ namespace Oswam2015.Models
         public Nullable<decimal> availableVolume { get; set; }
         public Nullable<decimal> availableWeight { get; set; }
         public bool CellType { get; set; }
+        public bool ContainsItems { get; set; }
+        public System.Data.Entity.Spatial.DbGeography GeomPoint { get; set; }
+        public Nullable<int> PackDistance { get; set; }
     }
 }

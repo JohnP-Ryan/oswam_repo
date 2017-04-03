@@ -59,6 +59,9 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="availableVolume" Type="decimal" Precision="9" Scale="2" />
           <Property Name="availableWeight" Type="decimal" Precision="9" Scale="2" />
           <Property Name="CellType" Type="bit" Nullable="false" />
+          <Property Name="ContainsItems" Type="bit" Nullable="false" />
+          <Property Name="GeomPoint" Type="geography" StoreGeneratedPattern="Computed" />
+          <Property Name="PackDistance" Type="int" StoreGeneratedPattern="Computed" />
         </EntityType>
         <Association Name="FK__LocalInve__Produ__08B54D69">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
@@ -263,6 +266,9 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="availableVolume" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="availableWeight" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="CellType" Type="Boolean" Nullable="false" />
+          <Property Name="ContainsItems" Type="Boolean" Nullable="false" />
+          <Property Name="GeomPoint" Type="Geography" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="PackDistance" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <Association Name="FK__LocalInve__Produ__08B54D69">
           <End Type="OSWAM_DataModel.Product" Role="Product" Multiplicity="1" />
@@ -369,6 +375,9 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <EntitySetMapping Name="Shelves">
             <EntityTypeMapping TypeName="OSWAM_DataModel.Shelf">
               <MappingFragment StoreEntitySet="Shelf">
+                <ScalarProperty Name="PackDistance" ColumnName="PackDistance" />
+                <ScalarProperty Name="GeomPoint" ColumnName="GeomPoint" />
+                <ScalarProperty Name="ContainsItems" ColumnName="ContainsItems" />
                 <ScalarProperty Name="CellType" ColumnName="CellType" />
                 <ScalarProperty Name="availableWeight" ColumnName="availableWeight" />
                 <ScalarProperty Name="availableVolume" ColumnName="availableVolume" />
