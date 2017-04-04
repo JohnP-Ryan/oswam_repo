@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
 using Oswam2015.Models;
 
 namespace Oswam2015.Controllers
@@ -42,5 +43,23 @@ namespace Oswam2015.Controllers
             double resultNum = Convert.ToDouble(resultList.FirstOrDefault().Weight);
             return resultNum;
         }
+
+        public List<GetShelfContents_Result> GetShelfContents(int locX, int locY)
+        {
+            var result = dataContext.GetShelfContents(locX, locY);
+            var resultList = result.ToList();
+            return resultList;
+        }
+
+        public int GetFillTime(string orderNumber)
+        {
+            var result = dataContext.GetTotalOrderTime(orderNumber);
+            var resultlist = result.ToList().FirstOrDefault();
+
+            int resultInt = resultlist.Value;
+
+            return resultInt;
+        }
+
     }
 }

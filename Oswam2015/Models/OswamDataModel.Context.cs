@@ -217,5 +217,27 @@ namespace Oswam2015.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetOrderTotalWeight", orderIDParameter);
         }
+    
+        public virtual ObjectResult<GetShelfContents_Result> GetShelfContents(Nullable<int> inputLocX, Nullable<int> inputLocY)
+        {
+            var inputLocXParameter = inputLocX.HasValue ?
+                new ObjectParameter("InputLocX", inputLocX) :
+                new ObjectParameter("InputLocX", typeof(int));
+    
+            var inputLocYParameter = inputLocY.HasValue ?
+                new ObjectParameter("InputLocY", inputLocY) :
+                new ObjectParameter("InputLocY", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShelfContents_Result>("GetShelfContents", inputLocXParameter, inputLocYParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetTotalOrderTime(string inputOrderNum)
+        {
+            var inputOrderNumParameter = inputOrderNum != null ?
+                new ObjectParameter("InputOrderNum", inputOrderNum) :
+                new ObjectParameter("InputOrderNum", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetTotalOrderTime", inputOrderNumParameter);
+        }
     }
 }
