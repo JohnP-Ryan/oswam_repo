@@ -114,6 +114,11 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
         <Function Name="GetPreferenceValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PreferenceKey" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="GetShelfItemTotals" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShelfID" Type="int" Mode="In" />
+          <Parameter Name="ShelfLocX" Type="int" Mode="In" />
+          <Parameter Name="ShelfLocY" Type="int" Mode="In" />
+        </Function>
         <Function Name="orderGenerator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="orderSize" Type="int" Mode="In" />
         </Function>
@@ -121,6 +126,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Parameter Name="PreferenceID" Type="int" Mode="In" />
           <Parameter Name="NewPreferenceValue" Type="int" Mode="In" />
         </Function>
+        <Function Name="SortVolume" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="OSWAM_DataModelStoreContainer">
           <EntitySet Name="LocalInventory" EntityType="Self.LocalInventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
@@ -224,6 +230,12 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           </FunctionImport>
           <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
           <FunctionImport Name="DeleteAllCells" />
+          <FunctionImport Name="GetShelfItemTotals" ReturnType="Collection(OSWAM_DataModel.GetShelfItemTotals_Result)">
+            <Parameter Name="ShelfID" Mode="In" Type="Int32" />
+            <Parameter Name="ShelfLocX" Mode="In" Type="Int32" />
+            <Parameter Name="ShelfLocY" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SortVolume" />
           </EntityContainer>
         <ComplexType Name="GetAllPreferences_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -309,6 +321,10 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Type="Guid" Name="OrderID" Nullable="false" />
           <Property Type="Int32" Name="Products" Nullable="true" />
           <Property Type="String" Name="OrderStatus" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="GetShelfItemTotals_Result">
+          <Property Type="Int32" Name="Unique_Items" Nullable="true" />
+          <Property Type="Int32" Name="Total_Items" Nullable="true" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -436,6 +452,15 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DeleteAllCells" FunctionName="OSWAM_DataModel.Store.DeleteAllCells" />
+          <FunctionImportMapping FunctionImportName="GetShelfItemTotals" FunctionName="OSWAM_DataModel.Store.GetShelfItemTotals">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetShelfItemTotals_Result">
+                <ScalarProperty Name="Unique_Items" ColumnName="Unique Items" />
+                <ScalarProperty Name="Total_Items" ColumnName="Total Items" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SortVolume" FunctionName="OSWAM_DataModel.Store.SortVolume" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

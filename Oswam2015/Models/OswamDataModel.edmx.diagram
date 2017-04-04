@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="OSWAM_DataModel.Order" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OSWAM_DataModel.Preference" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="OSWAM_DataModel.LocalInventory" Width="1.5" PointX="3" PointY="1.5" />
-        <EntityTypeShape EntityType="OSWAM_DataModel.Shelf" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="OSWAM_DataModel.Shelf" Width="1.5" PointX="5.375" PointY="0.75" />
         <AssociationConnector Association="OSWAM_DataModel.FK__LocalInve__Produ__08B54D69" />
         </Diagram>
     </edmx:Diagrams>

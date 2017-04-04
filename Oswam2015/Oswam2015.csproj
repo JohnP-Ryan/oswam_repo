@@ -203,6 +203,7 @@
     <Compile Include="Controllers\Inventory.cs" />
     <Compile Include="Controllers\Orders.cs" />
     <Compile Include="Controllers\Settings.cs" />
+    <Compile Include="Controllers\SimController.cs" />
     <Compile Include="Controllers\SortingController.cs" />
     <Compile Include="Controllers\Utility.cs" />
     <Compile Include="Global.asax.cs">
@@ -348,6 +349,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Sim\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -373,7 +375,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56370</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -195,5 +195,27 @@ namespace Oswam2015.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAllCells");
         }
+    
+        public virtual ObjectResult<GetShelfItemTotals_Result> GetShelfItemTotals(Nullable<int> shelfID, Nullable<int> shelfLocX, Nullable<int> shelfLocY)
+        {
+            var shelfIDParameter = shelfID.HasValue ?
+                new ObjectParameter("ShelfID", shelfID) :
+                new ObjectParameter("ShelfID", typeof(int));
+    
+            var shelfLocXParameter = shelfLocX.HasValue ?
+                new ObjectParameter("ShelfLocX", shelfLocX) :
+                new ObjectParameter("ShelfLocX", typeof(int));
+    
+            var shelfLocYParameter = shelfLocY.HasValue ?
+                new ObjectParameter("ShelfLocY", shelfLocY) :
+                new ObjectParameter("ShelfLocY", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShelfItemTotals_Result>("GetShelfItemTotals", shelfIDParameter, shelfLocXParameter, shelfLocYParameter);
+        }
+    
+        public virtual int SortVolume()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SortVolume");
+        }
     }
 }
