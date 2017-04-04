@@ -6,6 +6,7 @@
     <title>OSWAM - @ViewData["Title"]</title>
 
     <environment names="Development">
+        <script src="~/Scripts/jquery-3.1.1.js"></script>
         <link rel="stylesheet" href="~/content/bootstrap.css" />
         <link rel="stylesheet" href="~/content/Site.css" />
     </environment>
@@ -15,6 +16,10 @@
               asp-fallback-href="~/content/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/content/Site.min.css" asp-append-version="true" />
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/Scripts/jquery-3.1.1.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
     </environment>
 
     @RenderSection("styles", required: false)
@@ -74,14 +79,9 @@
     </div>
 
     <environment names="Development">
-        <script src="~/Scripts/jquery-3.1.1.js"></script>
         <script src="~/Scripts/bootstrap.js"></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/Scripts/jquery-3.1.1.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
         <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
                 asp-fallback-src="~/Scripts/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">

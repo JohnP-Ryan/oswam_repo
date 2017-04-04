@@ -10,12 +10,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Oswam2015.Models;
 using Newtonsoft.Json;
-
-using Oswam2015.Controllers;
-
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace OSWAM.Controllers
+namespace Oswam2015.Controllers
 {
     public class FloorGridController : Controller
     {
@@ -25,7 +22,7 @@ namespace OSWAM.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
-            SortingController.test();
+            //SortingController.test();
             CanvasModel floorGrid = new CanvasModel();
 
             return View(floorGrid);

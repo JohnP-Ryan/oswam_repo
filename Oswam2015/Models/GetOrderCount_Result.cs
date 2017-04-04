@@ -13,7 +13,7 @@ namespace Oswam2015.Models
     
     public partial class GetOrderCount_Result
     {
-        public System.Guid OrderID { get; set; }
+        public System.Guid OrderNumber { get; set; }
         public Nullable<int> Products { get; set; }
         public string OrderStatus { get; set; }
     }

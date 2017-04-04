@@ -30,6 +30,7 @@ namespace Oswam2015.Models
         public Nullable<short> Quantity { get; set; }
         public Nullable<decimal> Volume { get; set; }
         public int NumPlaced { get; set; }
+        public Nullable<int> NumReserved { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LocalInventory> LocalInventories { get; set; }

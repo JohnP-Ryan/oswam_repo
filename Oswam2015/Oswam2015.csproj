@@ -228,6 +228,9 @@
     <Compile Include="Models\GetOrderProducts_Result.cs">
       <DependentUpon>OswamDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetShelfItemTotals_Result.cs">
+      <DependentUpon>OswamDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LocalInventory.cs">
       <DependentUpon>OswamDataModel.tt</DependentUpon>
     </Compile>

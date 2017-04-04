@@ -1,10 +1,5 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using Oswam2015.Models;
+﻿using Oswam2015.Models;
+using Oswam2015.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Oswam2015.Tests
@@ -29,18 +24,10 @@ namespace Oswam2015.Tests
         public void TestMethod2()
         {
 
-            var result = dataContext.GetInventoryProducts("106171327X", null, 0, 0, 0, 0);
-            var resultList = result.ToList();
+            //double funcResult = Oswam2015.Controllers.UtilityController.GetProductWeight("106171327X");
 
-            //System.Diagnostics.Debug.WriteLine("" + resultList[0].DimWidth);
-
-            Assert.AreEqual(resultList[0].DimWidth, 0.10);
+            //Assert.AreEqual(funcResult, 0.05);
         }
 
-        [TestMethod]
-        public void TestMethod3()
-        {
-            Assert.AreEqual(2, 2);
-        }
     }
 }

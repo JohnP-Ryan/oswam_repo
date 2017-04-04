@@ -14,16 +14,14 @@
           <Property Name="ProductID" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Order">
+        <EntityType Name="Orders">
           <Key>
-            <PropertyRef Name="OrderID" />
-            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="OrderID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="OrderStatus" Type="varchar" MaxLength="15" />
+          <Property Name="OrderStatus" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OrderNumber" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Preference">
           <Key>
@@ -47,6 +45,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Name="Quantity" Type="smallint" />
           <Property Name="Volume" Type="decimal" Precision="29" Scale="6" StoreGeneratedPattern="Computed" />
           <Property Name="NumPlaced" Type="int" Nullable="false" />
+          <Property Name="NumReserved" Type="int" />
         </EntityType>
         <EntityType Name="Shelf">
           <Key>
@@ -129,16 +128,10 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
         <Function Name="SortVolume" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="OSWAM_DataModelStoreContainer">
           <EntitySet Name="LocalInventory" EntityType="Self.LocalInventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shelf" EntityType="Self.Shelf" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Order" EntityType="Self.Order" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Order].[OrderID] AS [OrderID], 
-    [Order].[ProductID] AS [ProductID], 
-    [Order].[OrderStatus] AS [OrderStatus]
-    FROM [dbo].[Order] AS [Order]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__LocalInve__Produ__08B54D69" Association="Self.FK__LocalInve__Produ__08B54D69">
             <End Role="Product" EntitySet="Product" />
             <End Role="LocalInventory" EntitySet="LocalInventory" />
@@ -163,19 +156,10 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <NavigationProperty Name="LocalInventories" Relationship="OSWAM_DataModel.FK__LocalInve__Produ__08B54D69" FromRole="Product" ToRole="LocalInventory" />
           <Property Name="Volume" Type="Decimal" Precision="29" Scale="6" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="NumPlaced" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="OrderID" />
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="OrderID" Type="Guid" Nullable="false" />
-          <Property Name="ProductID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="OrderStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NumReserved" Type="Int32" />
         </EntityType>
         <EntityContainer Name="OSWAM_DataEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
           <FunctionImport Name="orderGenerator" ReturnType="Collection(Double)">
           <Parameter Name="orderSize" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -216,19 +200,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             <Parameter Name="PriceLow" Mode="In" Type="Int32" />
             <Parameter Name="PriceHigh" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetOrderProducts" ReturnType="Collection(OSWAM_DataModel.GetOrderProducts_Result)">
-          <Parameter Name="OrderID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetOrderTotalPrice" ReturnType="Collection(Decimal)">
-          <Parameter Name="OrderID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetOrderTotalVolume" ReturnType="Collection(Decimal)">
-          <Parameter Name="OrderID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetOrderTotalWeight" ReturnType="Collection(Decimal)">
-          <Parameter Name="OrderID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
           <FunctionImport Name="DeleteAllCells" />
           <FunctionImport Name="GetShelfItemTotals" ReturnType="Collection(OSWAM_DataModel.GetShelfItemTotals_Result)">
             <Parameter Name="ShelfID" Mode="In" Type="Int32" />
@@ -236,6 +207,20 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
             <Parameter Name="ShelfLocY" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SortVolume" />
+          <EntitySet Name="Orders" EntityType="OSWAM_DataModel.Order" />
+          <FunctionImport Name="GetOrderCount" ReturnType="Collection(OSWAM_DataModel.GetOrderCount_Result)" />
+          <FunctionImport Name="GetOrderProducts" ReturnType="Collection(OSWAM_DataModel.GetOrderProducts_Result)">
+            <Parameter Name="OrderID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetOrderTotalPrice" ReturnType="Collection(Decimal)">
+            <Parameter Name="OrderID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetOrderTotalVolume" ReturnType="Collection(Decimal)">
+            <Parameter Name="OrderID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetOrderTotalWeight" ReturnType="Collection(Decimal)">
+            <Parameter Name="OrderID" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetAllPreferences_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -313,18 +298,27 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <Property Type="Int16" Name="Quantity" Nullable="true" />
           <Property Type="Decimal" Name="Volume" Nullable="true" Precision="29" Scale="6" />
         </ComplexType>
-        <ComplexType Name="GetOrderProducts_Result">
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="476" />
-          <Property Type="String" Name="ProductID" Nullable="false" MaxLength="10" />
-        </ComplexType>
-        <ComplexType Name="GetOrderCount_Result">
-          <Property Type="Guid" Name="OrderID" Nullable="false" />
-          <Property Type="Int32" Name="Products" Nullable="true" />
-          <Property Type="String" Name="OrderStatus" Nullable="true" MaxLength="15" />
-        </ComplexType>
         <ComplexType Name="GetShelfItemTotals_Result">
           <Property Type="Int32" Name="Unique_Items" Nullable="true" />
           <Property Type="Int32" Name="Total_Items" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="OrderStatus" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="OrderNumber" Type="Guid" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="GetOrderCount_Result">
+          <Property Type="Guid" Name="OrderNumber" Nullable="false" />
+          <Property Type="Int32" Name="Products" Nullable="true" />
+          <Property Type="String" Name="OrderStatus" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="GetOrderProducts_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="476" />
+          <Property Type="String" Name="ProductID" Nullable="false" MaxLength="10" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -335,6 +329,7 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="OSWAM_DataModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="NumReserved" ColumnName="NumReserved" />
                 <ScalarProperty Name="NumPlaced" ColumnName="NumPlaced" />
                 <ScalarProperty Name="Volume" ColumnName="Volume" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -345,15 +340,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
                 <ScalarProperty Name="DimHeight" ColumnName="DimHeight" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="OSWAM_DataModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -431,6 +417,35 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteAllCells" FunctionName="OSWAM_DataModel.Store.DeleteAllCells" />
+          <FunctionImportMapping FunctionImportName="GetShelfItemTotals" FunctionName="OSWAM_DataModel.Store.GetShelfItemTotals">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetShelfItemTotals_Result">
+                <ScalarProperty Name="Unique_Items" ColumnName="Unique Items" />
+                <ScalarProperty Name="Total_Items" ColumnName="Total Items" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SortVolume" FunctionName="OSWAM_DataModel.Store.SortVolume" />
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="OSWAM_DataModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetOrderCount" FunctionName="OSWAM_DataModel.Store.GetOrderCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetOrderCount_Result">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="Products" ColumnName="Products" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetOrderProducts" FunctionName="OSWAM_DataModel.Store.GetOrderProducts">
             <ResultMapping>
               <ComplexTypeMapping TypeName="OSWAM_DataModel.GetOrderProducts_Result">
@@ -442,25 +457,6 @@ warning 6002: The table/view 'OSWAM_Data.dbo.Order' does not have a primary key 
           <FunctionImportMapping FunctionImportName="GetOrderTotalPrice" FunctionName="OSWAM_DataModel.Store.GetOrderTotalPrice" />
           <FunctionImportMapping FunctionImportName="GetOrderTotalVolume" FunctionName="OSWAM_DataModel.Store.GetOrderTotalVolume" />
           <FunctionImportMapping FunctionImportName="GetOrderTotalWeight" FunctionName="OSWAM_DataModel.Store.GetOrderTotalWeight" />
-          <FunctionImportMapping FunctionImportName="GetOrderCount" FunctionName="OSWAM_DataModel.Store.GetOrderCount">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetOrderCount_Result">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Products" ColumnName="Products" />
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DeleteAllCells" FunctionName="OSWAM_DataModel.Store.DeleteAllCells" />
-          <FunctionImportMapping FunctionImportName="GetShelfItemTotals" FunctionName="OSWAM_DataModel.Store.GetShelfItemTotals">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="OSWAM_DataModel.GetShelfItemTotals_Result">
-                <ScalarProperty Name="Unique_Items" ColumnName="Unique Items" />
-                <ScalarProperty Name="Total_Items" ColumnName="Total Items" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SortVolume" FunctionName="OSWAM_DataModel.Store.SortVolume" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

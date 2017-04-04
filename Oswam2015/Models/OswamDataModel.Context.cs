@@ -28,10 +28,10 @@ namespace Oswam2015.Models
         }
     
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Preference> Preferences { get; set; }
         public virtual DbSet<LocalInventory> LocalInventories { get; set; }
         public virtual DbSet<Shelf> Shelves { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     
         public virtual ObjectResult<Nullable<double>> orderGenerator(Nullable<int> orderSize)
         {
@@ -150,6 +150,38 @@ namespace Oswam2015.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInventoryProducts_Result>("GetInventoryProducts", iDParameter, searchNameParameter, weightLowParameter, weightHighParameter, priceLowParameter, priceHighParameter);
         }
     
+        public virtual int DeleteAllCells()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAllCells");
+        }
+    
+        public virtual ObjectResult<GetShelfItemTotals_Result> GetShelfItemTotals(Nullable<int> shelfID, Nullable<int> shelfLocX, Nullable<int> shelfLocY)
+        {
+            var shelfIDParameter = shelfID.HasValue ?
+                new ObjectParameter("ShelfID", shelfID) :
+                new ObjectParameter("ShelfID", typeof(int));
+    
+            var shelfLocXParameter = shelfLocX.HasValue ?
+                new ObjectParameter("ShelfLocX", shelfLocX) :
+                new ObjectParameter("ShelfLocX", typeof(int));
+    
+            var shelfLocYParameter = shelfLocY.HasValue ?
+                new ObjectParameter("ShelfLocY", shelfLocY) :
+                new ObjectParameter("ShelfLocY", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShelfItemTotals_Result>("GetShelfItemTotals", shelfIDParameter, shelfLocXParameter, shelfLocYParameter);
+        }
+    
+        public virtual int SortVolume()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SortVolume");
+        }
+    
+        public virtual ObjectResult<GetOrderCount_Result> GetOrderCount()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
+        }
+    
         public virtual ObjectResult<GetOrderProducts_Result> GetOrderProducts(string orderID)
         {
             var orderIDParameter = orderID != null ?
@@ -184,38 +216,6 @@ namespace Oswam2015.Models
                 new ObjectParameter("OrderID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetOrderTotalWeight", orderIDParameter);
-        }
-    
-        public virtual ObjectResult<GetOrderCount_Result> GetOrderCount()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCount_Result>("GetOrderCount");
-        }
-    
-        public virtual int DeleteAllCells()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAllCells");
-        }
-    
-        public virtual ObjectResult<GetShelfItemTotals_Result> GetShelfItemTotals(Nullable<int> shelfID, Nullable<int> shelfLocX, Nullable<int> shelfLocY)
-        {
-            var shelfIDParameter = shelfID.HasValue ?
-                new ObjectParameter("ShelfID", shelfID) :
-                new ObjectParameter("ShelfID", typeof(int));
-    
-            var shelfLocXParameter = shelfLocX.HasValue ?
-                new ObjectParameter("ShelfLocX", shelfLocX) :
-                new ObjectParameter("ShelfLocX", typeof(int));
-    
-            var shelfLocYParameter = shelfLocY.HasValue ?
-                new ObjectParameter("ShelfLocY", shelfLocY) :
-                new ObjectParameter("ShelfLocY", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShelfItemTotals_Result>("GetShelfItemTotals", shelfIDParameter, shelfLocXParameter, shelfLocYParameter);
-        }
-    
-        public virtual int SortVolume()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SortVolume");
         }
     }
 }

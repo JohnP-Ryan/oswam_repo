@@ -14,8 +14,9 @@ namespace Oswam2015.Models
     
     public partial class Order
     {
-        public System.Guid OrderID { get; set; }
+        public int ID { get; set; }
         public string ProductID { get; set; }
         public string OrderStatus { get; set; }
+        public System.Guid OrderNumber { get; set; }
     }
 }
