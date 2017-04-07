@@ -36,5 +36,25 @@ namespace OSWAM.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public string GetAveOrderFillTime()
+        {
+            String html = "";
+
+            var calcTimeReturnList = dataContext.GetAverageFillTime().ToList();
+            html += "Average Order Completion Time: &nbsp;" + calcTimeReturnList[0].Value;
+
+            return html;
+        }
+
+        public string GetTotalItemNum()
+        {
+            String html = "";
+
+            var itemNumReturnList = dataContext.GetTotalStoredItemNum().ToList();
+            html += "Total Items Stored: &nbsp;" + itemNumReturnList[0].Value;
+
+            return html;
+        }
     }
 }

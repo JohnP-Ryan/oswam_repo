@@ -239,5 +239,15 @@ namespace Oswam2015.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetTotalOrderTime", inputOrderNumParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> GetAverageFillTime()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetAverageFillTime");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetTotalStoredItemNum()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetTotalStoredItemNum");
+        }
     }
 }

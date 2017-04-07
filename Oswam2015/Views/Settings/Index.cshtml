@@ -82,7 +82,7 @@
                     <ul class="list-group">
                         <li class="list-group-item">Total Warehouse Sq Ft: &nbsp; @totalWarehouseArea</li>
                         <li class="list-group-item">Total Warehouse Capacity cu ft: &nbsp; @totalWarehouseVolFt</li>
-                        <li class="list-group-item">Total Items Stored: &nbsp; </li>
+                        <li class="list-group-item" id="totalStoredItemDisp">Total Items Stored: &nbsp;</li>
                         <li class="list-group-item">
                             <div class="form-group">
                                 <label for="sel1">Item Sorting Style</label>
@@ -92,7 +92,7 @@
                                 </select>
                             </div>
                         </li>
-                        <li class="list-group-item">Average Order Completion Time: &nbsp; </li>
+                        <li class="list-group-item" id="aveOrderFillDisp">Average Order Completion Time: &nbsp;</li>
                         <li class="list-group-item"></li>
                         <li class="list-group-item"></li>
                         <li class="list-group-item"></li>
@@ -104,6 +104,30 @@
 </div>
 @section Scripts {
     <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Settings/GetTotalItemNum',
+                    datatype: "html",
+                    success: function (html) {
+                        $("#totalStoredItemDisp").html(html);
+                    }
+                });
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Settings/GetAveOrderFillTime',
+                    datatype: "html",
+                    success: function (html) {
+                        $("#aveOrderFillDisp").html(html);
+                    }
+                });
+
+            });
+        });
+
+
         $("input").on("keydown", function save(e) {
             if (e.keyCode == 13) {
                 savePreference(this);

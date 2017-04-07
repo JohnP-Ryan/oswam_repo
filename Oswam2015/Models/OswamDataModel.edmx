@@ -89,6 +89,7 @@
         </Function>
         <Function Name="GetAllCells" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllPreferences" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAverageFillTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetInventoryProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="char" Mode="In" />
           <Parameter Name="SearchName" Type="varchar" Mode="In" />
@@ -125,6 +126,7 @@
         <Function Name="GetTotalOrderTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="InputOrderNum" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="GetTotalStoredItemNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="orderGenerator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="orderSize" Type="int" Mode="In" />
         </Function>
@@ -233,8 +235,10 @@
             <Parameter Name="InputLocY" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetTotalOrderTime" ReturnType="Collection(Int32)">
-            <Parameter Name="InputOrderNum" Mode="In" Type="String" />
+          <Parameter Name="InputOrderNum" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetAverageFillTime" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="GetTotalStoredItemNum" ReturnType="Collection(Int32)" />
           </EntityContainer>
         <ComplexType Name="GetAllPreferences_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -484,6 +488,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetTotalOrderTime" FunctionName="OSWAM_DataModel.Store.GetTotalOrderTime" />
+          <FunctionImportMapping FunctionImportName="GetAverageFillTime" FunctionName="OSWAM_DataModel.Store.GetAverageFillTime" />
+          <FunctionImportMapping FunctionImportName="GetTotalStoredItemNum" FunctionName="OSWAM_DataModel.Store.GetTotalStoredItemNum" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
