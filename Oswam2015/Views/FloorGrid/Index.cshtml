@@ -9,8 +9,14 @@
     <div class="col-lg-11">
         <canvas id="canvas"></canvas>
     </div>
-    <div class="col-lg-1" align="right">
+    <div class="col-lg-1" align="right" style="height: 100%;">
         <button id="configBtn" class="btn btn-primary" style="font-size:20px;cursor:pointer;" onclick="openNav()">&#9776; Config</button>
+
+        <div class="pre-scrollable" id="shelfContentsDiv">
+            <table class="table table-striped" id="shelfContentsDisplay">
+
+            </table>
+        </div>
     </div>
 </div>
 
@@ -116,6 +122,7 @@
             document.getElementById("mySidenav").style.width = "220px";
             document.getElementById("main").style.marginRight = "220px";
             document.getElementById("configBtn").style.display = 'none';
+            document.getElementById("shelfContentsDiv").style.display = 'none';
             document.getElementById("cellButtonGroup").style.display = 'none';
         }
 
@@ -123,6 +130,7 @@
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginRight= "0";
             document.getElementById("configBtn").style.display = 'inline-block';
+            document.getElementById("shelfContentsDiv").style.display = 'inline-block';
             if(placeMode)
                 placemodeToggle();
             if(deleteMode)
@@ -309,7 +317,18 @@
                 var pxLocY = (Math.floor(e.offsetY / cellSizePx) * cellSizePx);
                 var placedCellType = -1;
 
+                //collect clicked shelf contents to display in sidebar
+                $.ajax({
+                    type: 'GET',
+                    url: '/FloorGrid/getShelfContents',
+                    data: {'LocX':coordLocX, 'LocY': coordLocY},
+                    datatype: "html",
+                    success: function(html){
+                        $("#shelfContentsDisplay").html(html);
+                    }
+                });
 
+                //Determine place type
                 if(placeMode && placeShelf && (maxShelfNum > placedShelfNum)){
                     context.fillStyle = "green";
                     context.fillRect(pxLocX + 1, pxLocY + 1, cellSizePx - 2, cellSizePx - 2);
@@ -327,21 +346,25 @@
                     context.fillRect(pxLocX + 1, pxLocY + 1, cellSizePx - 2, cellSizePx - 2);
                 }
 
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {'LocX':coordLocX, 'LocY': coordLocY, 'CellType':placedCellType},
-                    success: function(data){
-                        var json = JSON.parse(data);
+                //edit grid if in an edit mode (placemode, deletemode)
 
-                        placedShelfNum = parseInt(json[0]);
-                        placedStationNum = parseInt(json[1]);
+                if(placeMode || deleteMode)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: {'LocX':coordLocX, 'LocY': coordLocY, 'CellType':placedCellType},
+                        success: function(data){
+                            var json = JSON.parse(data);
 
-                        document.getElementById("shelfRemainingPrintout").innerText = (maxShelfNum - placedShelfNum);
-                        document.getElementById("stationRemainingPrintout").innerText = (maxStationNum - placedStationNum);
-                    }
-                });
+                            placedShelfNum = parseInt(json[0]);
+                            placedStationNum = parseInt(json[1]);
 
+                            document.getElementById("shelfRemainingPrintout").innerText = (maxShelfNum - placedShelfNum);
+                            document.getElementById("stationRemainingPrintout").innerText = (maxStationNum - placedStationNum);
+                        }
+                    });
+                }
             }
         })();
     </script>

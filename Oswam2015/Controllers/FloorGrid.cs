@@ -57,5 +57,24 @@ namespace Oswam2015.Controllers
             return JsonConvert.SerializeObject(stringArray);
         }
 
+        public String getShelfContents (int locX, int locY)
+        {
+            String html = "";
+
+            var shelfContentsList = dataContext.GetShelfContents(locX, locY).ToList();
+
+            html += "<thead><tr><th>Product</th><th>Quantity</th></tr></thead>";
+            html += "<tbody>";
+
+            foreach(GetShelfContents_Result item in shelfContentsList)
+            {
+                html += "<tr><td><h6>" + item.ProductID + "</h6></td><td><h6>" + item.Quantity + "</h6></td></tr>";
+            }
+
+            html += "</tbody>";
+
+            return html;
+        }
+
     }
 }
