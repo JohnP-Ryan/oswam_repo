@@ -127,6 +127,8 @@
           <Parameter Name="InputOrderNum" Type="varchar" Mode="In" />
         </Function>
         <Function Name="GetTotalStoredItemNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetTotalStoredItemPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetTotalStoredItemVolume" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="orderGenerator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="orderSize" Type="int" Mode="In" />
         </Function>
@@ -239,6 +241,8 @@
           </FunctionImport>
           <FunctionImport Name="GetAverageFillTime" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="GetTotalStoredItemNum" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="GetTotalStoredItemPrice" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="GetTotalStoredItemVolume" ReturnType="Collection(Decimal)" />
           </EntityContainer>
         <ComplexType Name="GetAllPreferences_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -490,6 +494,8 @@
           <FunctionImportMapping FunctionImportName="GetTotalOrderTime" FunctionName="OSWAM_DataModel.Store.GetTotalOrderTime" />
           <FunctionImportMapping FunctionImportName="GetAverageFillTime" FunctionName="OSWAM_DataModel.Store.GetAverageFillTime" />
           <FunctionImportMapping FunctionImportName="GetTotalStoredItemNum" FunctionName="OSWAM_DataModel.Store.GetTotalStoredItemNum" />
+          <FunctionImportMapping FunctionImportName="GetTotalStoredItemPrice" FunctionName="OSWAM_DataModel.Store.GetTotalStoredItemPrice" />
+          <FunctionImportMapping FunctionImportName="GetTotalStoredItemVolume" FunctionName="OSWAM_DataModel.Store.GetTotalStoredItemVolume" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

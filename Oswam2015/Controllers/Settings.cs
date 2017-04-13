@@ -56,5 +56,26 @@ namespace OSWAM.Controllers
 
             return html;
         }
+
+        public string GetTotalItemPrice()
+        {
+            String html = "";
+
+            var itemPriceReturnList = dataContext.GetTotalStoredItemPrice().ToList();
+            html += "Total Stored Item Price: &nbsp; $" + itemPriceReturnList[0].Value;
+
+            return html;
+        }
+
+        public string GetTotalItemVolume()
+        {
+            String html = "";
+
+            var itemVolumeReturnList = dataContext.GetTotalStoredItemVolume().ToList();
+            html += "Total Stored Item Volume: &nbsp;" + itemVolumeReturnList[0].Value + "&nbsp; cu ft.";
+
+            return html;
+        }
+
     }
 }

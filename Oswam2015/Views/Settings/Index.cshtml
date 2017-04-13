@@ -83,18 +83,18 @@
                         <li class="list-group-item">Total Warehouse Sq Ft: &nbsp; @totalWarehouseArea</li>
                         <li class="list-group-item">Total Warehouse Capacity cu ft: &nbsp; @totalWarehouseVolFt</li>
                         <li class="list-group-item" id="totalStoredItemDisp">Total Items Stored: &nbsp;</li>
+                        <li class="list-group-item" id="totalContainedItemPrice">Total Stored Item Price: &nbsp;</li>
+                        <li class="list-group-item" id="totalContainedItemVol">Total Stored Item Volume: &nbsp;</li>
                         <li class="list-group-item">
                             <div class="form-group">
                                 <label for="sel1">Item Sorting Style</label>
                                 <select onchange="sortingSelectChange()" class="form-control" id="sel1">
                                     <option>Alphabetically</option>
-                                    <option>By Volume</option>
+                                    <option selected>By Volume</option>
                                 </select>
                             </div>
                         </li>
                         <li class="list-group-item" id="aveOrderFillDisp">Average Order Completion Time: &nbsp;</li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
                         <li class="list-group-item"></li>
                     </ul>
                 </div>
@@ -112,6 +112,24 @@
                     datatype: "html",
                     success: function (html) {
                         $("#totalStoredItemDisp").html(html);
+                    }
+                });
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Settings/GetTotalItemPrice',
+                    datatype: "html",
+                    success: function (html) {
+                        $("#totalContainedItemPrice").html(html);
+                    }
+                });
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Settings/GetTotalItemVolume',
+                    datatype: "html",
+                    success: function (html) {
+                        $("#totalContainedItemVol").html(html);
                     }
                 });
 

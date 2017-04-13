@@ -249,5 +249,15 @@ namespace Oswam2015.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetTotalStoredItemNum");
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> GetTotalStoredItemPrice()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetTotalStoredItemPrice");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> GetTotalStoredItemVolume()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetTotalStoredItemVolume");
+        }
     }
 }
