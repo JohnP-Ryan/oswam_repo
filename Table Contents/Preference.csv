@@ -1,0 +1,11 @@
+﻿0,NumShelves,62
+1,ShelfHeight,6
+2,ShelfSideLength,4
+3,ShelfWeightLimit,1000
+4,WarehouseLength,160
+5,WarehouseWidth,80
+6,ShelfCubicInchVolume,165888
+7,NumPackingStations,12
+8,SelectedSortingAlg,1
+9,NumPlacedShelves,62
+10,NumPlacedStations,12
