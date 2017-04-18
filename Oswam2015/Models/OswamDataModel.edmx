@@ -82,6 +82,7 @@
           <Parameter Name="CellType" Type="bit" Mode="In" />
         </Function>
         <Function Name="DeleteAllCells" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DeleteOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="DeleteShelf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="LocationX" Type="int" Mode="In" />
@@ -90,6 +91,7 @@
         <Function Name="GetAllCells" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllPreferences" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAverageFillTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAverageFillTimeWaiting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetInventoryProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="char" Mode="In" />
           <Parameter Name="SearchName" Type="varchar" Mode="In" />
@@ -132,10 +134,12 @@
         <Function Name="orderGenerator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="orderSize" Type="int" Mode="In" />
         </Function>
+        <Function Name="ProcessAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SetPreferenceValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PreferenceID" Type="int" Mode="In" />
           <Parameter Name="NewPreferenceValue" Type="int" Mode="In" />
         </Function>
+        <Function Name="SortNameAlpha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SortVolume" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="OSWAM_DataModelStoreContainer">
           <EntitySet Name="LocalInventory" EntityType="Self.LocalInventory" Schema="dbo" store:Type="Tables" />
@@ -171,9 +175,6 @@
         </EntityType>
         <EntityContainer Name="OSWAM_DataEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <FunctionImport Name="orderGenerator" ReturnType="Collection(Double)">
-          <Parameter Name="orderSize" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SetPreferenceValue">
             <Parameter Name="PreferenceID" Mode="In" Type="Int32" />
             <Parameter Name="NewPreferenceValue" Mode="In" Type="Int32" />
@@ -243,6 +244,13 @@
           <FunctionImport Name="GetTotalStoredItemNum" ReturnType="Collection(Int32)" />
           <FunctionImport Name="GetTotalStoredItemPrice" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="GetTotalStoredItemVolume" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="SortNameAlpha" />
+          <FunctionImport Name="DeleteOrders" />
+          <FunctionImport Name="orderGenerator">
+          <Parameter Name="orderSize" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProcessAllOrders" />
+          <FunctionImport Name="GetAverageFillTimeWaiting" ReturnType="Collection(Decimal)" />
           </EntityContainer>
         <ComplexType Name="GetAllPreferences_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -369,7 +377,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="orderGenerator" FunctionName="OSWAM_DataModel.Store.orderGenerator" />
           <FunctionImportMapping FunctionImportName="SetPreferenceValue" FunctionName="OSWAM_DataModel.Store.SetPreferenceValue" />
           <FunctionImportMapping FunctionImportName="GetAllPreferences" FunctionName="OSWAM_DataModel.Store.GetAllPreferences">
             <ResultMapping>
@@ -496,6 +503,11 @@
           <FunctionImportMapping FunctionImportName="GetTotalStoredItemNum" FunctionName="OSWAM_DataModel.Store.GetTotalStoredItemNum" />
           <FunctionImportMapping FunctionImportName="GetTotalStoredItemPrice" FunctionName="OSWAM_DataModel.Store.GetTotalStoredItemPrice" />
           <FunctionImportMapping FunctionImportName="GetTotalStoredItemVolume" FunctionName="OSWAM_DataModel.Store.GetTotalStoredItemVolume" />
+          <FunctionImportMapping FunctionImportName="SortNameAlpha" FunctionName="OSWAM_DataModel.Store.SortNameAlpha" />
+          <FunctionImportMapping FunctionImportName="DeleteOrders" FunctionName="OSWAM_DataModel.Store.DeleteOrders" />
+          <FunctionImportMapping FunctionImportName="orderGenerator" FunctionName="OSWAM_DataModel.Store.orderGenerator" />
+          <FunctionImportMapping FunctionImportName="ProcessAllOrders" FunctionName="OSWAM_DataModel.Store.ProcessAllOrders" />
+          <FunctionImportMapping FunctionImportName="GetAverageFillTimeWaiting" FunctionName="OSWAM_DataModel.Store.GetAverageFillTimeWaiting" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

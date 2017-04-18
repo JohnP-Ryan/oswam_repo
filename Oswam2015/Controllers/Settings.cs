@@ -42,10 +42,38 @@ namespace OSWAM.Controllers
             String html = "";
 
             var calcTimeReturnList = dataContext.GetAverageFillTime().ToList();
-            html += "Average Order Completion Time: &nbsp;" + calcTimeReturnList[0].Value;
+
+            try
+            {
+                html += "Total Average Order Completion Time: &nbsp;" + calcTimeReturnList[0].Value;
+            }
+            catch
+            {
+                html += "Total Average Order Completion Time: &nbsp; N/A";
+            }
 
             return html;
         }
+
+        public string GetAveOrderFillTimeWaiting()
+        {
+            String html = "";
+
+            var calcTimeReturnList = dataContext.GetAverageFillTimeWaiting().ToList();
+
+            try
+            {
+                html += "Average Completion Time of 'Waiting' Orders: &nbsp;" + calcTimeReturnList[0].Value;
+            }
+            catch
+            {
+                html += "Average Completion Time of 'Waiting' Orders: &nbsp; N/A";
+            }
+
+            return html;
+        }
+
+
 
         public string GetTotalItemNum()
         {
@@ -75,6 +103,11 @@ namespace OSWAM.Controllers
             html += "Total Stored Item Volume: &nbsp;" + itemVolumeReturnList[0].Value + "&nbsp; cu ft.";
 
             return html;
+        }
+
+        public void DeleteStoredOrders()
+        {
+            dataContext.DeleteOrders();
         }
 
     }

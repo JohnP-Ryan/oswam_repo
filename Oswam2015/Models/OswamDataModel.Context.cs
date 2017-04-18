@@ -33,15 +33,6 @@ namespace Oswam2015.Models
         public virtual DbSet<Shelf> Shelves { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
     
-        public virtual ObjectResult<Nullable<double>> orderGenerator(Nullable<int> orderSize)
-        {
-            var orderSizeParameter = orderSize.HasValue ?
-                new ObjectParameter("orderSize", orderSize) :
-                new ObjectParameter("orderSize", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("orderGenerator", orderSizeParameter);
-        }
-    
         public virtual int SetPreferenceValue(Nullable<int> preferenceID, Nullable<int> newPreferenceValue)
         {
             var preferenceIDParameter = preferenceID.HasValue ?
@@ -258,6 +249,35 @@ namespace Oswam2015.Models
         public virtual ObjectResult<Nullable<decimal>> GetTotalStoredItemVolume()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetTotalStoredItemVolume");
+        }
+    
+        public virtual int SortNameAlpha()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SortNameAlpha");
+        }
+    
+        public virtual int DeleteOrders()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteOrders");
+        }
+    
+        public virtual int orderGenerator(Nullable<int> orderSize)
+        {
+            var orderSizeParameter = orderSize.HasValue ?
+                new ObjectParameter("orderSize", orderSize) :
+                new ObjectParameter("orderSize", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("orderGenerator", orderSizeParameter);
+        }
+    
+        public virtual int ProcessAllOrders()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProcessAllOrders");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> GetAverageFillTimeWaiting()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GetAverageFillTimeWaiting");
         }
     }
 }

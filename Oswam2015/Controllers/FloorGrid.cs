@@ -28,6 +28,32 @@ namespace Oswam2015.Controllers
             return View(floorGrid);
         }
 
+        public void sort()
+        {
+            int algorithmIndex = Convert.ToInt32(dataContext.GetPreferenceValue("SelectedSortingAlg").ToList().FirstOrDefault());
+
+            System.Diagnostics.Debug.WriteLine("Sorting Called");
+
+            //convert saved preference to sorting method
+            switch (algorithmIndex)
+            {
+                case 0:
+                    System.Diagnostics.Debug.WriteLine("Sorting Alpha");
+                    dataContext.SortNameAlpha();
+                    break;
+                case 1:
+                    System.Diagnostics.Debug.WriteLine("Sorting Volume");
+                    dataContext.SortVolume();
+                    break;
+                default:
+                    System.Diagnostics.Debug.WriteLine("Sort Failed: Redirect");
+                    RedirectToAction("Index", "Settings");
+                    break;
+            }
+        }
+
+
+
         public String editCell(int locX, int locY, int CellType)
         {
             if (CellType == 0)

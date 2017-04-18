@@ -19,7 +19,6 @@ namespace OSWAM.Controllers
 
         private OSWAM_DataEntities dataContext = new OSWAM_DataEntities();
 
-        // GET: /<controller>/
         public ActionResult Index()
         {
             var orderData = dataContext.GetOrderCount();
@@ -49,6 +48,40 @@ namespace OSWAM.Controllers
             }
             
             return html;
+        }
+
+        [HttpPost]
+        public ActionResult GenerateOrder()
+        {
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+            var preferenceReturnMin = dataContext.GetPreferenceValue("OrderGeneratorMinProductNum").ToList();
+            var preferenceReturnMax = dataContext.GetPreferenceValue("OrderGeneratorMaxProductNum").ToList();
+
+            int minSize = preferenceReturnMin[0].Value;
+            int maxSize = preferenceReturnMax[0].Value;
+            int orderSize;
+
+            if(minSize == maxSize)
+            {
+                orderSize = rand.Next(minSize, maxSize);
+            }
+            else
+            {
+                orderSize = rand.Next(minSize, maxSize + 1);
+            }
+
+            dataContext.orderGenerator(orderSize);
+
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        public ActionResult ProcessOrders()
+        {
+            dataContext.ProcessAllOrders();
+
+            return RedirectToAction("Index");
         }
 
     }

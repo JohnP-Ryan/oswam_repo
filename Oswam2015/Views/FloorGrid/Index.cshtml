@@ -36,7 +36,8 @@
     </div>
     <div>
         <br />
-        <a id="sortButton" href="#" onclick="executeSort()">Distribute Items to Shelves</a>
+        <!--<a id="sortButton" href="#" onclick="executeSort()">Distribute Items to Shelves</a>           DISABLE SORT FROM UI FOR DEMO-->
+        <a id="sortButton" href="#" onclick="sortNotification()">Distribute Items to Shelves</a>   <!--SWITCH COMMENTING ON THESE TWO LINES TO RE ENABLE-->
     </div>
     <div>
         <br />
@@ -173,7 +174,7 @@
             //possibly display confirmation dialog before sending to sort
             //may need loading indicator
 
-            var url = '/Sorting/Index';
+            var url = '/FloorGrid/sort';
 
             closeNav();
 
@@ -186,6 +187,11 @@
                 }
             });
         }
+
+        function sortNotification(){
+            alert("Initializing product sorting from the user interface is currently disabled for demo purposes.");
+        }
+
 
         function deletemodeToggle(){
             if(deleteMode){ //exit delete mode

@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <div>
     <div class="row row-flex">
-        <div class="col-sm-2 col-md-2">
+        <div class="col-sm-3 col-md-3">
             <div class="panel panel-default flex-col">
                 <div class="panel-heading">
                     <h4 class="">Inventory Config</h4>
@@ -27,15 +27,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2 col-md-2">
+        <div class="col-sm-3 col-md-3">
             <div class="panel panel-default flex-col">
                 <div class="panel-heading">
                     <h4 class="">Orders Config</h4>
                 </div>
                 <div class="panel-body flex-grow">
                     <ul class="list-group">
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
+                        <li class="list-group-item">
+                            <button class="btn btn-primary prefTextField" id="pref2But1">Order Generator Minimum Product Number</button>
+                            <input type="text" id="pref2In1" data-id="11" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(11).PreferenceValue" /></li>
+                        <li class="list-group-item">
+                            <button class="btn btn-primary prefTextField" id="pref2But2">Order Generator Maximum Product Number</button>
+                            <input type="text" id="pref2In2" data-id="12" onkeydown="save(this)" onfocus="this.select();" value="@Model.ElementAt(12).PreferenceValue" />
+                        </li>
+                        <li class="list-group-item"><button class="btn btn-primary" onclick="deleteStoredOrders()">Delete All Order Records</button> </li>
                         <li class="list-group-item"></li>
                         <li class="list-group-item"></li>
                         <li class="list-group-item"></li>
@@ -73,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-5 col-md-5">
+        <div class="col-sm-3 col-md-3">
             <div class="panel panel-default flex-col">
                 <div class="panel-heading">
                     <h4 class="">System Diagnostics</h4>
@@ -94,8 +100,8 @@
                                 </select>
                             </div>
                         </li>
-                        <li class="list-group-item" id="aveOrderFillDisp">Average Order Completion Time: &nbsp;</li>
-                        <li class="list-group-item"></li>
+                        <li class="list-group-item" id="aveOrderFillWaitingDisp">Average Completion Time of 'Waiting' Orders: &nbsp;</li>
+                        <li class="list-group-item" id="aveOrderFillDisp">Total Average Order Completion Time: &nbsp;</li>
                     </ul>
                 </div>
             </div>
@@ -142,6 +148,15 @@
                     }
                 });
 
+                $.ajax({
+                    type: 'GET',
+                    url: '/Settings/GetAveOrderFillTimeWaiting',
+                    datatype: "html",
+                    success: function (html) {
+                        $("#aveOrderFillWaitingDisp").html(html);
+                    }
+                });
+
             });
         });
 
@@ -151,6 +166,17 @@
                 savePreference(this);
             }
         });
+
+        function deleteStoredOrders() {
+            $.ajax({
+                type: 'POST',
+                url: '/Settings/DeleteStoredOrders',
+                success: function () {
+                    alert("Orders Deleted");
+                }
+            });
+        }
+
 
         function sortingSelectChange() {
             var selectionFormObj = document.getElementById("sel1");
@@ -207,5 +233,11 @@
         document.getElementById('pref3But7').onclick = function () {
             document.getElementById('pref3In7').focus();
         };
+        document.getElementById('pref2But1').onclick = function () {
+            document.getElementById('pref2In1').focus();
+        }
+        document.getElementById('pref2But2').onclick = function () {
+            document.getElementById('pref2In2').focus();
+        }
     </script>    
 }
