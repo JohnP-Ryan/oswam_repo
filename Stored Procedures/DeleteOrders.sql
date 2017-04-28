@@ -10,7 +10,7 @@ GO
 -- Create date: 4/17/17
 -- Description:	Delete all entries in Orders table
 -- =============================================
-CREATE PROCEDURE DeleteOrders
+ALTER PROCEDURE DeleteOrders
 	-- Add the parameters for the stored procedure here
 AS
 BEGIN
@@ -20,5 +20,8 @@ BEGIN
 
     -- Insert statements for procedure here
 	Delete From Orders
+
+	UPDATE Product
+	SET NumReserved = 0
 END
 GO
